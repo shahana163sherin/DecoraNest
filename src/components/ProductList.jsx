@@ -1,18 +1,22 @@
 import { useState, useMemo } from "react";
 import { Heart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const ProductList = ({ products }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [search, setSearch] = useState("");
-  const [likedItems, setLikedItems] = useState([]); 
+  const [likedItems, setLikedItems] = useState([]);
+  const [message, setMessage] = useState(false); 
 
+  const { dispatch } = useCart();
 
+  
   const categories = useMemo(() => {
     const unique = new Set(products.map((p) => p.category));
     return ["All", ...unique];
   }, [products]);
 
-
+  
   const filteredProducts = products
     .filter((p) =>
       selectedCategory === "All"
@@ -31,6 +35,13 @@ const ProductList = ({ products }) => {
   return (
     <div className="px-6 py-10 max-w-7xl mx-auto">
     
+      {message && (
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-2 rounded shadow-md z-50">
+        {message}
+        </div>
+      )}
+
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <input
           type="text"
@@ -39,6 +50,7 @@ const ProductList = ({ products }) => {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full sm:w-64 p-2 rounded-md border border-red-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
+
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <button
@@ -63,7 +75,7 @@ const ProductList = ({ products }) => {
             key={product.id}
             className="bg-purple-50 relative rounded-xl shadow-md hover:shadow-purple-200 p-10 flex flex-col items-center text-center hover:scale-105 transition transform"
           >
-           
+      
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-red-500"
               onClick={() => toggleLike(product.id)}
@@ -76,12 +88,14 @@ const ProductList = ({ products }) => {
               />
             </button>
 
-           
+            
             <img
               src={product.image}
               alt={product.name}
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
+
+            
             <h3 className="text-lg font-semibold text-gray-800">
               {product.name}
             </h3>
@@ -90,7 +104,15 @@ const ProductList = ({ products }) => {
               ₹{product.price}
             </p>
 
-            <button className="mt-auto bg-purple-600 text-white px-4 py-1 rounded-full hover:bg-purple-700 transition">
+            
+            <button
+              className="mt-auto bg-purple-600 text-white px-4 py-1 rounded-full hover:bg-purple-700 transition"
+              onClick={() => {
+                dispatch({ type: "AddToCart", payload: product });
+                setMessage(`${product.name} added to cart!`);
+                setTimeout(() => setMessage(false), 2000);
+              }}
+            >
               Add to Cart
             </button>
           </div>

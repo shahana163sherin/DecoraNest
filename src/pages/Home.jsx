@@ -7,6 +7,7 @@ import ProductList from '../components/ProductList'
 const Home = () =>{
 
     const [products,setProducts]=useState([]);
+    
 
     useEffect(()=>{
         getAllProducts()
@@ -18,6 +19,7 @@ return (
    <div>
     <Hero/>
      <Featured products={products}/>
+     
      
 
       <ProductList products={products}/>

@@ -48,5 +48,32 @@
       "category": "Small accent",
       "image": "/assets/diwali.jpeg"
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Shahana",
+      "email": "shahana@example.com",
+      "password": "123456",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "createdAt": "2025-07-09T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Shahana",
+      "email": "shahanavakkarath@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "createdAt": "2025-07-09T10:00:00Z"
+    }
   ]
 }
+  
