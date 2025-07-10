@@ -91,7 +91,7 @@ const Login = () => {
 
       <form
         onSubmit={submit}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm space-y-4 ml-90"
+        className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm space-y-4 "
       >
         <h2 className="text-2xl font-semibold text-center text-gray-800">Login to<br/> <span className="text-2xl font-semibold text-center text-purple-800">DecoraNest</span></h2>
 
