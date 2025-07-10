@@ -3,17 +3,25 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Register from "./pages/Register";
+import Order from "./pages/Orders";
+import { useCart } from "./context/CartContext";
+import { useWishList } from "./context/WishlistContext";
+import Wishlist from './pages/wishlist'
+import { ShoppingCart, Heart } from "lucide-react"; 
+
 
 const App = () => {
+  const { cart } = useCart();
+  const { wishlist } = useWishList();
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <div>
-      {/* Navbar */}
-      <nav className="text-purple-900 p-4 shadow-md" style={{backgroundColor:'#E0BBE4'}}>
+      <nav className="text-purple-900 p-4 shadow-md" style={{ backgroundColor: "#E0BBE4" }}>
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">
-            DecoraNest
-          </h1>
-          <ul className="flex space-x-6">
+          <h1 className="text-xl font-bold">DecoraNest</h1>
+          <ul className="flex space-x-6 items-center">
             <li>
               <Link to="/" className="hover:text-white">Home</Link>
             </li>
@@ -23,20 +31,46 @@ const App = () => {
             <li>
               <Link to="/register" className="hover:text-white">Register</Link>
             </li>
-            <li>
-              <Link to="/cart" className="hover:text-white">Cart</Link>
+
+           
+            <li className="relative">
+              <Link to="/wishlist" className="hover:text-white flex items-center gap-1">
+                <Heart className="w-5 h-5" />
+              </Link>
+              {wishlist.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                  {wishlist.length}
+                </span>
+              )}
+            </li>
+
+            <li className="relative">
+              <Link to="/cart" className="hover:text-white flex items-center gap-1">
+                <ShoppingCart className="w-5 h-5" />
+              </Link>
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                  {totalItems}
+                </span>
+              )}
             </li>
           </ul>
         </div>
       </nav>
 
-      {/* Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Order />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+
       </Routes>
+
+
+
+
     </div>
   );
 };

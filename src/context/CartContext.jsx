@@ -1,9 +1,12 @@
 import { createContext, useReducer,useContext,useEffect } from "react";
+import {useAuth} from './AuthContext'
+import axios from "axios";
 
 const CartContext = createContext();
 
 const initialstate={
    cart: JSON.parse(localStorage.getItem("cart")) || []
+   
 }
 
 const reducer = (state,action) => {
@@ -46,6 +49,8 @@ const reducer = (state,action) => {
 
     export const CartProvider = ({children}) => {
 
+        const {user,setUser}=useAuth()
+
 
         const [state,dispatch]=useReducer(reducer,initialstate)
 
@@ -54,7 +59,26 @@ const reducer = (state,action) => {
 
             localStorage.setItem("cart",JSON.stringify(state.cart))
 
-        },[state.cart])
+            const Sync = async ()=>{
+                 if (user && user.id){
+                    try{
+                    await axios.patch(`http://localhost:3000/users/${user.id}`,{
+                     cart:state.cart})
+                    const updatedUser={...user,cart:state.cart}
+                    localStorage.setItem("user",JSON.stringify(updatedUser))
+                    setUser(updatedUser)
+                        }
+                    catch (err){
+                        console.error("Error in updating",err)
+                    }
+               
+            }
+            }
+            Sync();
+           
+
+
+        },[state.cart,user])
         return (
             <>
             <CartContext.Provider value={{cart:state.cart,dispatch}}>

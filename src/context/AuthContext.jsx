@@ -10,11 +10,16 @@ const AuthProvider = ({children}) =>
     
     const [user,setUser]=useState(null);
 const [loading,setLoading]=useState(true)
-    useEffect(()=>{
+   useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  if (storedUser && storedUser.id) {
+    setUser(storedUser);
+  } else {
+    setUser(null); // ensures consistency
+  }
+  setLoading(false);
+}, []);
 
-       setUser(JSON.parse(localStorage.getItem("user"))) 
-        setLoading(false)
-    },[])
 
 
     //-----------------Login---------------------
@@ -44,6 +49,7 @@ const [loading,setLoading]=useState(true)
   console.error("Error Occured", error);
   return { error: "Something went wrong. Please try again." };
 }
+
 
        
 }

@@ -55,9 +55,10 @@
 
 
 
+
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { Login } = useAuth();
@@ -68,6 +69,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate=useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -77,6 +79,7 @@ const Login = () => {
     } else {
       alert("Welcome to DecoraNest");
     }
+    navigate("/")
   };
 
   return (

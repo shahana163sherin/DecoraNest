@@ -1,5 +1,5 @@
 import Hero from "../components/Hero";
-import Featured from "../components/Featured";
+// import Featured from "../components/Featured";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../services/productServices";
@@ -18,7 +18,7 @@ const Home = () =>{
 return (
    <div>
     <Hero/>
-     <Featured products={products}/>
+     {/* <Featured products={products}/> */}
      
      
 
@@ -29,5 +29,6 @@ return (
 
 }
 export default Home
+
 
 
