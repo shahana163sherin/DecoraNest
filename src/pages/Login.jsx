@@ -75,7 +75,7 @@ const Login = () => {
     if (result?.error) {
       alert(result.error);
     } else {
-      alert("Login successful!");
+      alert("Welcome to DecoraNest");
     }
   };
 
@@ -83,8 +83,7 @@ const Login = () => {
     
    <div
   className="relative min-h-screen flex items-center justify-center bg-cover bg-center "
-  style={{ backgroundImage: `url('/assets/login.jpeg')` }} // ✅ Put image in public/assets
->
+  style={{ backgroundImage: `url('/assets/login.jpeg')` }} >
         {/* <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div> */}
 
       <form
