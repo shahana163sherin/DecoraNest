@@ -58,16 +58,7 @@
       "password": "123456",
       "role": "user",
       "isBlock": false,
-      "cart": [
-        {
-          "id": "4",
-          "name": "LED Fairy Lights",
-          "price": 299,
-          "category": "Furniture",
-          "image": "/assets/wood.jpeg",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [
         {
           "items": [
@@ -98,11 +89,56 @@
           "total": 1599,
           "createdAt": "2025-07-11T06:11:26.096Z",
           "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "5",
+              "name": "LED Fairy Lights",
+              "price": 299,
+              "category": "Textiles",
+              "image": "/assets/purple.jpeg",
+              "quantity": 1
+            },
+            {
+              "id": "4",
+              "name": "LED Fairy Lights",
+              "price": 299,
+              "category": "Furniture",
+              "image": "/assets/wood.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 598,
+          "createdAt": "2025-07-11T07:29:44.334Z",
+          "status": "pending"
         }
       ],
-      "wishlist": [],
+      "wishlist": [
+        {
+          "id": "7",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Small accent",
+          "image": "/assets/diwali.jpeg"
+        },
+        {
+          "id": "5",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Textiles",
+          "image": "/assets/purple.jpeg"
+        }
+      ],
       "createdAt": "2025-07-09T10:00:00Z",
       "Wishlist": [
+        {
+          "id": "7",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Small accent",
+          "image": "/assets/diwali.jpeg"
+        },
         {
           "id": "5",
           "name": "LED Fairy Lights",
@@ -120,9 +156,79 @@
       "role": "user",
       "isBlock": false,
       "cart": [],
-      "orders": [],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "1",
+              "name": "Boho Wall Hanging",
+              "price": 999,
+              "category": "Wall Decor",
+              "image": "/assets/diwali.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 999,
+          "createdAt": "2025-07-11T07:40:57.899Z",
+          "status": "cancelled"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Rustic Wooden Shelf",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/wood.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 1599,
+          "createdAt": "2025-07-11T07:46:14.386Z",
+          "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "3",
+              "name": "LED Fairy Lights",
+              "price": 299,
+              "category": "Lighting",
+              "image": "/assets/diwali.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 299,
+          "createdAt": "2025-07-11T07:49:49.695Z",
+          "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "1",
+              "name": "Boho Wall Hanging",
+              "price": 999,
+              "category": "Wall Decor",
+              "image": "/assets/diwali.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 999,
+          "createdAt": "2025-07-11T07:51:33.354Z",
+          "status": "pending"
+        }
+      ],
       "wishlist": [],
-      "createdAt": "2025-07-09T10:00:00Z"
+      "createdAt": "2025-07-09T10:00:00Z",
+      "Wishlist": [
+        {
+          "id": "2",
+          "name": "Rustic Wooden Shelf",
+          "price": 1599,
+          "category": "Storage",
+          "image": "/assets/wood.jpeg"
+        }
+      ]
     },
     {
       "id": "25c1",
@@ -171,6 +277,74 @@
       "wishlist": [],
       "orders": [],
       "createdAt": "2025-07-11T06:07:56.077Z"
+    },
+    {
+      "id": "bd79",
+      "name": "user1",
+      "email": "user1@gmail.com",
+      "password": "1234.s56",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "4",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Furniture",
+          "image": "/assets/wood.jpeg",
+          "quantity": 1
+        }
+      ],
+      "wishlist": [
+        {
+          "id": "5",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Textiles",
+          "image": "/assets/purple.jpeg"
+        },
+        {
+          "id": "4",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Furniture",
+          "image": "/assets/wood.jpeg"
+        }
+      ],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "7",
+              "name": "LED Fairy Lights",
+              "price": 299,
+              "category": "Small accent",
+              "image": "/assets/diwali.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 299,
+          "createdAt": "2025-07-11T07:56:22.855Z",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2025-07-11T07:28:54.471Z",
+      "Wishlist": [
+        {
+          "id": "5",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Textiles",
+          "image": "/assets/purple.jpeg"
+        },
+        {
+          "id": "4",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Furniture",
+          "image": "/assets/wood.jpeg"
+        }
+      ]
     }
   ]
 }

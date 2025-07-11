@@ -68,17 +68,18 @@ const [loading,setLoading]=useState(true)
 
 //---------------logout----------------
 
-const Logout = () => {
-
-    localStorage.removeItem("user");
-    localStorage.removeItem("cart");
-    localStorage.removeItem("wishlist");
-   
-    setUser(null);
-
-
-
-}
+const Logout = async () => {
+  if (user?.id) {
+    await axios.patch(`http://localhost:3000/users/${user.id}`, {
+      cart: [],
+      wishlist: []
+    });
+  }
+  localStorage.removeItem("user");
+  localStorage.removeItem("cart");
+  localStorage.removeItem("wishlist");
+  setUser(null);
+};
 
 
     return (

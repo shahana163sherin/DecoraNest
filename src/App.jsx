@@ -193,7 +193,7 @@ const App = () => {
     Logout();
 
     cartDispatch({type:"ClearCart"})
-    wishDispatch({type:"ClearCart"})
+    wishDispatch({type:"ClearWish"})
    
     navigate("/login");
   };

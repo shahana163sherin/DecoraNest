@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Slide data
+
 const slides = [
   {
     id: 1,
     title: "Welcome to DecoraNest",
     description: "Find your perfect touch of elegance & comfort",
-    image: null, // First slide has no image
+    image: null, 
   },
   {
     id: 2,
     title: "Discover Cozy Wall Decor",
     description: "Give your space a warm, personal touch",
-    image: "/assets/purple.jpeg", // Add your image here
+    image: "/assets/purple.jpeg", 
   },
 ];
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
 
-  // Change slide every 4 seconds
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
