@@ -13,14 +13,14 @@ const Wishlist = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (!user || !user.id) {
       setMessage("Please LogIn");
       setTimeout(() => setMessage(""), 2000);
       navigate("/login");
     }
   }, [user, navigate]);
 
-  if (!user) return null;
+  if (!user ) return null;
   if (wishlist.length === 0) return <h2 className="text-center text-xl font-semibold mt-10">Wishlist is Empty</h2>;
 
   const handleRemove = async (item) => {

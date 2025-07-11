@@ -19,6 +19,8 @@ const reducer = (state,action) => {
                 wishlist:state.wishlist.filter((item)=>
                 item.id !== action.payload)
             }
+        case "ClearCart":
+            return {...state,wishlist:[]};
         
         default:
             return state;

@@ -58,10 +58,59 @@
       "password": "123456",
       "role": "user",
       "isBlock": false,
-      "cart": [],
-      "orders": [],
+      "cart": [
+        {
+          "id": "4",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Furniture",
+          "image": "/assets/wood.jpeg",
+          "quantity": 1
+        }
+      ],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Rustic Wooden Shelf",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/wood.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 1599,
+          "createdAt": "2025-07-11T06:08:37.880Z",
+          "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Rustic Wooden Shelf",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/wood.jpeg",
+              "quantity": 1
+            }
+          ],
+          "total": 1599,
+          "createdAt": "2025-07-11T06:11:26.096Z",
+          "status": "pending"
+        }
+      ],
       "wishlist": [],
-      "createdAt": "2025-07-09T10:00:00Z"
+      "createdAt": "2025-07-09T10:00:00Z",
+      "Wishlist": [
+        {
+          "id": "5",
+          "name": "LED Fairy Lights",
+          "price": 299,
+          "category": "Textiles",
+          "image": "/assets/purple.jpeg"
+        }
+      ]
     },
     {
       "id": "2",
@@ -110,6 +159,18 @@
       "wishlist": [],
       "orders": [],
       "createdAt": "2025-07-09T15:33:54.455Z"
+    },
+    {
+      "id": "5349",
+      "name": "salahu",
+      "email": "salah@gmail.com",
+      "password": "sala1.23",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": [],
+      "createdAt": "2025-07-11T06:07:56.077Z"
     }
   ]
 }

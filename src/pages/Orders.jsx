@@ -5,14 +5,18 @@ import axios from "axios";
 
 const Order = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { user, setUser,loading } = useAuth();
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
+    if(loading)return;
     if (!user || !user.id) {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user,loading, navigate]);
+  if (loading) {
+  return <p className="text-center mt-10 text-gray-600">Loading...</p>;
+}
 
   if (!user || !user.id) return null;
 

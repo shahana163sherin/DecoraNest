@@ -10,15 +10,18 @@ import WishListProvider from './context/WishlistContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      
+
     <AuthProvider>
       <CartProvider>
         <WishListProvider>
 
         <App />
    </WishListProvider>
-
     </CartProvider>
+
     </AuthProvider>
+
     </BrowserRouter>
     
     
