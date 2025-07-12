@@ -358,7 +358,7 @@ const Order = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [user?.id, loading, navigate, setUser]);
 
   const handleCancel = async (index) => {
     const updatedOrders = [...user.orders];

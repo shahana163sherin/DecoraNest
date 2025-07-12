@@ -28,26 +28,27 @@ const ProductList = ({ products }) => {
     )
     .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()));
 
-  const toggleLike = async (product) => {
-    if (!user) {
-      setMessage("Please LogIn");
-      setTimeout(() => setMessage(""), 2000);
-      navigate("/login");
-      return;
-    }
+ const toggleLike = async (product) => {
+  if (!user) {
+    navigate("/login");
+    return;
+  }
 
-    const inWish = wishlist.some((item) => item.id === product.id);
+  const inWish = wishlist.some((item) => item.id === product.id);
 
-    if (inWish) {
-      wishDispatch({ type: "RemoveFromWish", payload: product.id });
-      const updatedWish = wishlist.filter((item) => item.id !== product.id);
-      await UpdatedWish(user.id, updatedWish); 
-    } else {
-      wishDispatch({ type: "AddToWish", payload: product });
-      const updatedWish = [...wishlist, product];
-      await UpdatedWish(user.id, updatedWish); 
-    }
-  };
+  let updatedWish;
+
+  if (inWish) {
+    updatedWish = wishlist.filter((item) => item.id !== product.id);
+    wishDispatch({ type: "RemoveFromWish", payload: product.id });
+  } else {
+    updatedWish = [...wishlist, product];
+    wishDispatch({ type: "AddToWish", payload: product });
+  }
+
+  await UpdatedWish(user.id, updatedWish);
+};
+
 
   return (
     <div className="px-6 py-10 max-w-7xl mx-auto">
@@ -72,8 +73,8 @@ const ProductList = ({ products }) => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-1 rounded-full border text-sm transition-all duration-200 ${
-                selectedCategory === cat
+              className={`px-4 py-1 rounded-full border text-sm transition-all duration-200 
+                ${selectedCategory === cat
                   ? "bg-purple-700 text-white border-purple-700"
                   : "bg-white text-gray-800 hover:bg-purple-100"
               }`}

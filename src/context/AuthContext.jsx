@@ -1,8 +1,6 @@
 import { createContext ,useContext,useEffect,useState} from "react";
 import axios from "axios";
-// import { useCart } from "./CartContext";
-// import { useWishList } from "./WishlistContext";
-// import { useCart } from "./CartContext";
+
 
 export const AuthContext = createContext();
 
@@ -13,14 +11,13 @@ const AuthProvider = ({children}) =>
     
     const [user,setUser]=useState(null);
 const [loading,setLoading]=useState(true)
-  // const {dispatch:cartDispatch}=useCart();
-  // const {dispatch:wishDispatch}=useWishList();
+  
    useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   if (storedUser && storedUser.id) {
     setUser(storedUser);
   } else {
-    setUser(null); // ensures consistency
+    setUser(null); 
   }
   setLoading(false);
 }, []);
@@ -68,19 +65,38 @@ const [loading,setLoading]=useState(true)
 
 //---------------logout----------------
 
-const Logout = async () => {
-  if (user?.id) {
-    await axios.patch(`http://localhost:3000/users/${user.id}`, {
-      cart: [],
-      wishlist: []
-    });
-  }
-  localStorage.removeItem("user");
-  localStorage.removeItem("cart");
-  localStorage.removeItem("wishlist");
-  setUser(null);
-};
+// const Logout = async () => {
+//   if (user?.id) {
+//     await axios.patch(`http://localhost:3000/users/${user.id}`, {
+//       cart: [],
+//       wishlist: []
+//     });
+//   }
+//   localStorage.removeItem("user");
+//   localStorage.removeItem("cart");
+//   localStorage.removeItem("wishlist");
+//   setUser(null);
+// };
 
+const Logout = async () => {
+  try {
+    if (user?.id) {
+      await axios.patch(`http://localhost:3000/users/${user.id}`, {
+        cart: [],
+        wishlist: [],
+        orders: [] 
+      });
+    }
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("wishlist");
+
+    setUser(null);
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
     return (
 <>

@@ -13,17 +13,22 @@ const Wishlist = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user || !user.id) {
-      setMessage("Please LogIn");
-      setTimeout(() => setMessage(""), 2000);
+    if (!user) {
+      setTimeout(()=>
+        alert("please login"),2000
+      )
+      
       navigate("/login");
+      return;
     }
   }, [user, navigate]);
+ 
 
   if (!user ) return null;
   if (wishlist.length === 0) return <h2 className="text-center text-xl font-semibold mt-10">Wishlist is Empty</h2>;
 
   const handleRemove = async (item) => {
+
     const updatedWishlist = wishlist.filter(w => w.id !== item.id);
     wishDispatch({ type: "RemoveFromWish", payload: item.id });
     await UpdatedWish(user.id, updatedWishlist);
@@ -34,7 +39,7 @@ const Wishlist = () => {
   const handleAddToCart = (item) => {
     cartDispatch({ type: "AddToCart", payload: item });
     setMessage("Added to cart");
-    setTimeout(() => setMessage(""), 2000);
+    setTimeout(() => setMessage(""),2000);
     navigate("/cart");
   };
 

@@ -3,11 +3,11 @@ import axios from 'axios'
 
 const URL= "http://localhost:3000/users"
 
-export const UpdatedWish = async (userId,Wishlist)=>
+export const UpdatedWish = async (userId,wishlist)=>
     {
       try{
         const res=await axios.patch(`${URL}/${userId}`,{
-            Wishlist,
+            wishlist,
         })
         return res.data;
 
@@ -21,7 +21,7 @@ export const UpdatedWish = async (userId,Wishlist)=>
     export const getWish = async (userId) =>{
         try{
             const res=await axios.get(`${URL}/${userId}`)
-            return res.data.Wishlist
+            return res.data.wishlist
         }
         catch(error){
         console.error("Error in updating",error)
