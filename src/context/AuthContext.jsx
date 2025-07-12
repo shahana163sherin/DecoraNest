@@ -30,7 +30,7 @@ const [loading,setLoading]=useState(true)
   try {
     const BASE_URL = "http://localhost:3000/users";
 
-    // First: validate user with email & password
+    
     const res = await axios.get(BASE_URL, {
       params: {
         email,
@@ -63,20 +63,6 @@ const [loading,setLoading]=useState(true)
 };
 
 
-//---------------logout----------------
-
-// const Logout = async () => {
-//   if (user?.id) {
-//     await axios.patch(`http://localhost:3000/users/${user.id}`, {
-//       cart: [],
-//       wishlist: []
-//     });
-//   }
-//   localStorage.removeItem("user");
-//   localStorage.removeItem("cart");
-//   localStorage.removeItem("wishlist");
-//   setUser(null);
-// };
 
 const Logout = async () => {
   try {
