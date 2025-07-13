@@ -9,8 +9,9 @@ import Order from "./pages/Orders";
 import Wishlist from './pages/wishlist';
 import { useCart } from "./context/CartContext";
 import { useWishList } from "./context/WishlistContext";
-import { useAuth } from "./context/AuthContext"; // 👈 Import AuthContext
+import { useAuth } from "./context/AuthContext"; 
 import { ShoppingCart, Heart, Menu, LogOut } from "lucide-react";
+import ProductDetails from './components/ProductDetails';
 
 const App = () => {
   const { cart } = useCart();
@@ -38,19 +39,19 @@ const App = () => {
 
   return (
     <div>
-      {/* Navbar */}
-      <nav className="text-purple-900 p-4 shadow-md" style={{ backgroundColor: "#E0BBE4" }}>
+      
+      <nav className="text-purple-900 p-4 shadow-md" style={{ backgroundColor: "#E0BBE5" }}>
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold">DecoraNest</h1>
 
-          {/* Hamburger Icon (Mobile) */}
+          
           <div className="md:hidden">
             <button onClick={() => setMenuOpen(!menuOpen)}>
               <Menu />
             </button>
           </div>
 
-          {/* Links */}
+          
           <ul className={`md:flex items-center space-x-6 ${menuOpen ? "block" : "hidden"} absolute md:static bg-[#E0BBE4] md:bg-transparent top-16 left-0 w-full md:w-auto p-4 md:p-0 shadow-md md:shadow-none`}>
             <li>
               <Link to="/" className="hover:text-white block py-2 md:py-0" onClick={() => setMenuOpen(false)}>Home</Link>
@@ -106,7 +107,7 @@ const App = () => {
         </div>
       </nav>
 
-      {/* Routes */}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -114,6 +115,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+
       </Routes>
     </div>
   );

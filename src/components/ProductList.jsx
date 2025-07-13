@@ -4,8 +4,9 @@ import { Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useWishList } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { UpdatedWish } from "../services/WishListServices";
+
 
 const ProductList = ({ products }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -102,13 +103,14 @@ const ProductList = ({ products }) => {
               >
                 <Heart size={20} fill={inWish ? "red" : "none"} strokeWidth={2} />
               </button>
-
+               
+               <Link to = {`/product/${product.id}`}>
              
               <div className="w-full h-48 overflow-hidden flex items-center justify-center bg-white rounded-lg mb-4">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-full object-contain transition-transform duration-300 hover:scale-110"
+                  className="h-full object-contain transition-transform duration-300 hover:scale-200"
                 />
               </div>
 
@@ -116,6 +118,7 @@ const ProductList = ({ products }) => {
               <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
               <p className="text-sm text-gray-500 mb-1">{product.category}</p>
               <p className="text-purple-700 font-bold text-lg mb-3">₹{product.price}</p>
+              </Link>
 
               
               <button
@@ -129,6 +132,7 @@ const ProductList = ({ products }) => {
               >
                 Add to Cart
               </button>
+              
             </div>
           );
         })}
