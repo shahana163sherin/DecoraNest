@@ -303,7 +303,34 @@
         }
       ],
       "wishlist": [],
-      "orders": [],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "3",
+              "name": " Hanging Diya Lamp",
+              "price": 299,
+              "category": "Lighting",
+              "image": "/assets/diwali.jpeg",
+              "description": "Traditional meets modern with this handcrafted diya-style hanging lamp. Adds a warm and spiritual glow to any room or entryway.",
+              "quantity": 2
+            },
+            {
+              "id": "6",
+              "name": " Schefflera (Umbrella Plant) in Ceramic Planter",
+              "price": 3299,
+              "category": "IndoorPlant",
+              "image": "/assets/plant.jpg",
+              "description": "A lush green indoor plant known for its umbrella-like leaves. Potted in a premium ceramic planter to complement any indoor setting.",
+              "quantity": 1
+            }
+          ],
+          "total": 3897,
+          "address": "hfvgfvgb",
+          "createdAt": "2025-07-14T16:23:38.962Z",
+          "status": "pending"
+        }
+      ],
       "createdAt": "2025-07-11T07:28:54.471Z",
       "Wishlist": [
         {

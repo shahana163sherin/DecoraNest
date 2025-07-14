@@ -69,8 +69,7 @@ const Logout = async () => {
     if (user?.id) {
       await axios.patch(`http://localhost:3000/users/${user.id}`, {
         cart: [],
-        wishlist: [],
-        orders: [] 
+        wishlist: []
       });
     }
 
