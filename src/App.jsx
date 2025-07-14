@@ -57,11 +57,12 @@ const App = () => {
             <Menu />
           </button>
 
-          <ul
-            className={`${
-              menuOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-[#E0BBE4] md:bg-transparent p-4 md:p-0 shadow md:shadow-none z-10`}
-          >
+            <ul
+              className={`${
+                menuOpen ? "flex" : "hidden"
+              } md:flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 fixed md:static top-16 left-0 w-full md:w-auto bg-[#E0BBE4] md:bg-transparent p-4 md:p-0 shadow md:shadow-none z-50 md:z-auto`}
+             >
+
             <li>
               <Link to="/" onClick={closeMenu} className="hover:text-white">
                 Home
