@@ -291,7 +291,17 @@
       "password": "1234.s56",
       "role": "user",
       "isBlock": false,
-      "cart": [],
+      "cart": [
+        {
+          "id": "1",
+          "name": "Middlten Grey & Gold Wallclock",
+          "price": 1999,
+          "category": "Wall Decor",
+          "image": "/assets/wallcl.webp",
+          "description": "A modern timepiece featuring a matte grey base and elegant golden accents.Its minimal design blends seamlessly into contemporary or classic interiors.",
+          "quantity": 1
+        }
+      ],
       "wishlist": [],
       "orders": [],
       "createdAt": "2025-07-11T07:28:54.471Z",

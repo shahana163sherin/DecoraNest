@@ -39,8 +39,10 @@ const Wishlist = () => {
   const handleAddToCart = (item) => {
     cartDispatch({ type: "AddToCart", payload: item });
     setMessage("Added to cart");
-    setTimeout(() => setMessage(""),2000);
-    navigate("/cart");
+    setTimeout(() => {setMessage("")
+       navigate("/cart")
+    },2000);
+   
   };
 
   return (

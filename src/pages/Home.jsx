@@ -17,11 +17,7 @@ const Home = () =>{
 return (
    <div>
     <Hero/>
-     
-     
-     
-
-      <ProductList products={products}/>
+    <ProductList products={products}/>
       <Footer/>
     </div>
   );

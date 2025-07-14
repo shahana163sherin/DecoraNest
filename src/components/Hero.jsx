@@ -1,5 +1,3 @@
-
-
 const Hero = () => {
   return (
     <section className="relative h-[60vh] overflow-hidden">

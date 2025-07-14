@@ -8,7 +8,7 @@ const Cart = () => {
   const { cart, dispatch } = useCart();
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  const [address,setAddress]=useState(null);
+  const [address,setAddress]=useState("");
 
   if (cart.length === 0) return <h2 className="text-center text-xl mt-10">🛒 Your cart is empty</h2>;
 

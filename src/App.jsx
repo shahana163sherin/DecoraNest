@@ -1,80 +1,98 @@
-
 import { useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, Heart, Menu, LogOut } from "lucide-react";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Cart from "./pages/Cart";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
 import Order from "./pages/Orders";
-import Wishlist from './pages/wishlist';
+import Wishlist from "./pages/Wishlist";
+import ProductDetails from "./components/ProductDetails";
+
 import { useCart } from "./context/CartContext";
 import { useWishList } from "./context/WishlistContext";
-import { useAuth } from "./context/AuthContext"; 
-import { ShoppingCart, Heart, Menu, LogOut } from "lucide-react";
-import ProductDetails from './components/ProductDetails';
+import { useAuth } from "./context/AuthContext";
 
 const App = () => {
-  const { cart } = useCart();
-  const { wishlist,dispatch:wishDispatch } = useWishList();
-  const {dispatch:cartDispatch}=useCart();
-  const { user, Logout ,loading,setUser} = useAuth(); 
   const navigate = useNavigate();
-
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const { cart, dispatch: cartDispatch } = useCart();
+  const { wishlist, dispatch: wishDispatch } = useWishList();
+  const { user, Logout, loading, setUser } = useAuth();
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   const handleLogout = () => {
-    Logout()
-    setUser(null)
-
-
-    cartDispatch({type:"ClearCart"})
-    wishDispatch({type:"ClearWish"})
-   
-    navigate("/login");
+    Logout();
+    setUser(null);
+    cartDispatch({ type: "ClearCart" });
+    wishDispatch({ type: "ClearWish" });
     setMenuOpen(false);
-
+    navigate("/login");
   };
-  if (loading) return <p className="text-center mt-10">Loading...</p>; 
+
+  const handleMenuClick = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div>
       
-      <nav className="text-purple-900 p-4 shadow-md" style={{ backgroundColor: "#E0BBE5" }}>
+      <nav className="bg-[#E0BBE5] text-purple-900 p-4 shadow-md">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">DecoraNest</h1>
+          <h1
+            className="text-xl font-bold cursor-pointer"
+            onClick={() => {
+              navigate("/");
+              closeMenu();
+            }}
+          >
+            DecoraNest
+          </h1>
 
-          
-          <div className="md:hidden">
-            <button onClick={() => setMenuOpen(!menuOpen)}>
-              <Menu />
-            </button>
-          </div>
+          <button className="md:hidden" onClick={handleMenuClick}>
+            <Menu />
+          </button>
 
-          
-          <ul className={`md:flex items-center space-x-6 ${menuOpen ? "block" : "hidden"} absolute md:static bg-[#E0BBE4] md:bg-transparent top-16 left-0 w-full md:w-auto p-4 md:p-0 shadow-md md:shadow-none`}>
+          <ul
+            className={`${
+              menuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-[#E0BBE4] md:bg-transparent p-4 md:p-0 shadow md:shadow-none z-10`}
+          >
             <li>
-              <Link to="/" className="hover:text-white block py-2 md:py-0" onClick={() => setMenuOpen(false)}>Home</Link>
+              <Link to="/" onClick={closeMenu} className="hover:text-white">
+                Home
+              </Link>
             </li>
 
-            { !user && (
+            {!user ? (
               <>
                 <li>
-                  <Link to="/login" className="hover:text-white block py-2 md:py-0" onClick={() => setMenuOpen(false)}>Login</Link>
+                  <Link to="/login" onClick={closeMenu} className="hover:text-white">
+                    Login
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/register" className="hover:text-white block py-2 md:py-0" onClick={() => setMenuOpen(false)}>Register</Link>
+                  <Link to="/register" onClick={closeMenu} className="hover:text-white">
+                    Register
+                  </Link>
                 </li>
               </>
-            )}
-
-            {user && (
+            ) : (
               <>
                 <li>
-                  <Link to="/orders" className="hover:text-white block py-2 md:py-0" onClick={() => setMenuOpen(false)}>Orders</Link>
+                  <Link to="/orders" onClick={closeMenu} className="hover:text-white">
+                    Orders
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={handleLogout} className="hover:text-white  py-2 md:py-0 flex items-center gap-1 text-red-700">
+                  <button
+                    onClick={handleLogout}
+                    className="text-red-600 hover:text-white flex items-center gap-1"
+                  >
                     <LogOut className="w-4 h-4" />
                     Logout
                   </button>
@@ -83,10 +101,10 @@ const App = () => {
             )}
 
             <li className="relative">
-              <Link to="/wishlist" className="hover:text-white flex items-center gap-1" onClick={() => setMenuOpen(false)}>
+              <Link to="/wishlist" onClick={closeMenu} className="hover:text-white flex items-center gap-1">
                 <Heart className="w-5 h-5" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
                     {wishlist.length}
                   </span>
                 )}
@@ -94,10 +112,10 @@ const App = () => {
             </li>
 
             <li className="relative">
-              <Link to="/cart" className="hover:text-white flex items-center gap-1" onClick={() => setMenuOpen(false)}>
+              <Link to="/cart" onClick={closeMenu} className="hover:text-white flex items-center gap-1">
                 <ShoppingCart className="w-5 h-5" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
                     {totalItems}
                   </span>
                 )}
@@ -116,12 +134,10 @@ const App = () => {
         <Route path="/orders" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-
       </Routes>
     </div>
   );
 };
 
 export default App;
-
 

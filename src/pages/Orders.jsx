@@ -75,7 +75,7 @@ const Order = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h2 className="text-4xl font-bold text-center mb-8 text-purple-800">🧾 My Orders</h2>
+      <h2 className="text-4xl font-bold text-center mb-8 text-purple-800"> My Orders</h2>
 
       
       <div className="flex justify-center gap-4 mb-10 flex-wrap">
