@@ -6,6 +6,7 @@
       "price": 1999,
       "category": "Wall Decor",
       "image": "/assets/wallcl.webp",
+      "stock":"true",
       "description": "A modern timepiece featuring a matte grey base and elegant golden accents.Its minimal design blends seamlessly into contemporary or classic interiors."
     },
     {
@@ -14,6 +15,7 @@
       "price": 1599,
       "category": "Storage",
       "image": "/assets/str.jpg",
+      "stock":"true",
       "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist."
     },
     {
@@ -22,6 +24,7 @@
       "price": 299,
       "category": "Lighting",
       "image": "/assets/diwali.jpeg",
+      "stock":"true",
       "description": "Traditional meets modern with this handcrafted diya-style hanging lamp. Adds a warm and spiritual glow to any room or entryway."
     },
     {
@@ -30,6 +33,7 @@
       "price": 12299,
       "category": "Furniture",
       "image": "/assets/fut.webp",
+      "stock":"true",
       "description": "A stylish and sturdy accent table with a sleek metal tripod base. Ideal for living rooms, reading corners, or beside your sofa."
     },
     {
@@ -38,6 +42,7 @@
       "price": 299,
       "category": "Textiles",
       "image": "/assets/cur2.jpg",
+      "stock":"true",
       "description": "Elegant dual-layer curtains with sheer and opaque layers. Offers privacy, light control, and a sophisticated touch to your interiors."
     },
     {
@@ -46,6 +51,7 @@
       "price": 3299,
       "category": "IndoorPlant",
       "image": "/assets/plant.jpg",
+      "stock":"true",
       "description": "A lush green indoor plant known for its umbrella-like leaves. Potted in a premium ceramic planter to complement any indoor setting."
     },
     {
@@ -54,6 +60,7 @@
       "price": 299,
       "category": "Small accent",
       "image": "/assets/accent.jpg",
+      "stock":"true",
       "description": "Minimalist and calming, this unscented white candle adds a peaceful touch to your space. Great for meditation, décor, or gifting."
     },
     {
@@ -62,6 +69,7 @@
       "price": 5000,
       "category": "Lighting",
       "image": "/assets/lighting2.jpg",
+      "stock":"true",
       "description": "A spherical ceramic lamp with a soft matte finish and warm glow. Ideal for desks, nightstands, or cozy corners."
     },
     {
@@ -70,6 +78,7 @@
       "price": 3299,
       "category": "IndoorPlant",
       "image": "/assets/plant2.jpg",
+      "stock":"true",
       "description": "Realistic and maintenance-free, this faux olive tree adds Mediterranean charm to your home without the upkeep."
     },
     {
@@ -78,6 +87,7 @@
       "price": 3299,
       "category": "Wall Decor",
       "image": "/assets/wall1.webp",
+      "stock":"true",
       "description": "A dreamy blend of soft greys and abstract textures, framed in a sleek black border. Brings calm sophistication to any wall."
     },
     {
@@ -86,6 +96,7 @@
       "price": 17299,
       "category": "Furniture",
       "image": "/assets/frntr.jpg",
+      "stock":"true",
       "description": "Stylish and comfy chair with a bold wooden frame and textured upholstery — perfect for modern or retro interiors."
     },
     {
@@ -94,6 +105,7 @@
       "price": 299,
       "category": "Textiles",
       "image": "/assets/curtain.jpg",
+      "stock":"true",
       "description": "Two-layered modern curtains featuring flowing fabric for depth and elegance. Balances light and privacy effortlessly."
     }
   ],
