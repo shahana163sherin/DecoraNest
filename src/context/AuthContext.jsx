@@ -1,5 +1,6 @@
 import { createContext ,useContext,useEffect,useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 
 export const AuthContext = createContext();
@@ -11,11 +12,13 @@ const AuthProvider = ({children}) =>
     
     const [user,setUser]=useState(null);
 const [loading,setLoading]=useState(true)
+const navigate=useNavigate();
   
    useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   if (storedUser && storedUser.id) {
     setUser(storedUser);
+    
   } else {
     setUser(null); 
   }
@@ -54,8 +57,9 @@ const [loading,setLoading]=useState(true)
 
     localStorage.setItem("user", JSON.stringify(freshUser));
     setUser(freshUser);
+    
 
-    return { success: true };
+    return { success: true,role:freshUser.role };
   } catch (error) {
     console.error("Login Error:", error);
     return { error: "Something went wrong. Please try again." };

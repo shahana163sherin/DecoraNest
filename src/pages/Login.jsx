@@ -16,12 +16,19 @@ const Login = () => {
   const submit = async (e) => {
     e.preventDefault();
     const result = await Login(form.email, form.password);
-    if (result?.error) {
-      alert(result.error);
-    } else {
-      alert("Welcome to DecoraNest");
-    }
-    navigate("/")
+  
+    if (result?.success) {
+  alert("Welcome to DecoraNest");
+
+  if (result.role === "admin") {
+    navigate("/admin/dashboard");
+  } else {
+    navigate("/");
+  }
+} else {
+  alert(result.error);
+}
+
   };
 
   return (

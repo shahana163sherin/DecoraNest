@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate ,Navigate} from "react-router-dom";
 import { ShoppingCart, Heart, Menu, LogOut } from "lucide-react";
 
 import Home from "./pages/Home";
@@ -9,6 +9,14 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
 import ProductDetails from "./components/ProductDetails";
+
+
+import Users from "./admin/Users";
+import OrdersAdmin from "./admin/Orders";
+import ProductsAdmin from "./admin/Products";
+import  Dashboard from './admin/Dashboard';
+import AdminLayout from './admin/AdminLayout';
+
 
 import { useCart } from "./context/CartContext";
 import { useWishList } from "./context/WishlistContext";
@@ -32,9 +40,10 @@ const App = () => {
     setMenuOpen(false);
     navigate("/login");
   };
-
+ 
   const handleMenuClick = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
+  const isAdmin = user && user.role == "admin";
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
@@ -135,6 +144,25 @@ const App = () => {
         <Route path="/orders" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+
+
+          {/* admin */}
+          
+          {isAdmin ? (
+            
+             <Route path="/admin" element={<AdminLayout/>}>
+          <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="orderadmin" element={<OrdersAdmin/>}/>
+          <Route path="product" element={<ProductsAdmin/>}/>
+          <Route path="users" element={<Users/>}/>
+          </Route>
+          ):(
+              <Route path="/admin/*" element={<Navigate to="/" />} />
+        )}
+         
+
+
+
       </Routes>
     </div>
   );
