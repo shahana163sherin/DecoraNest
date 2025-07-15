@@ -60,7 +60,7 @@ const ProductDetails = () => {
             }}
             className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-all shadow-md hover:scale-105"
           >
-            🛒 Add To Cart
+             Add To Cart
           </button>
         </div>
       </div>
