@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, Link, useNavigate ,Navigate} from "react-router-dom";
+import { Routes, Route, Link, useNavigate ,Navigate, useLocation} from "react-router-dom";
 import { ShoppingCart, Heart, Menu, LogOut } from "lucide-react";
 
 import Home from "./pages/Home";
@@ -29,6 +29,8 @@ const App = () => {
   const { cart, dispatch: cartDispatch } = useCart();
   const { wishlist, dispatch: wishDispatch } = useWishList();
   const { user, Logout, loading, setUser } = useAuth();
+  const location=useLocation();
+  const isAdminRoute=location.pathname.startsWith("/admin")
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -49,8 +51,10 @@ const App = () => {
 
   return (
     <div>
-      
-      <nav className="bg-[#E0BBE5] text-purple-900 p-4 shadow-md">
+      {!isAdminRoute &&(
+
+
+  <nav className="bg-[#E0BBE5] text-purple-900 p-4 shadow-md">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1
             className="text-xl font-bold cursor-pointer"
@@ -134,9 +138,13 @@ const App = () => {
           </ul>
         </div>
       </nav>
-
+      )}
       
-      <Routes>
+    
+
+ <Routes>
+     
+     
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -144,7 +152,9 @@ const App = () => {
         <Route path="/orders" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-
+  
+  
+      
 
           {/* admin */}
           
@@ -164,7 +174,7 @@ const App = () => {
 
 
       </Routes>
-    </div>
+  </div>
   );
 };
 

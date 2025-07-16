@@ -96,9 +96,18 @@ const Users = () => {
   const [rolefilter,setRolefilter]=useState("All");
   const [blockfilter,setBlockfltr]=useState("All");
   const [search,setSearch]=useState("");
-  const [currentPage,setCurrentPage]=useState("");
 
-  const userPerPage=5;
+  //-------------paginationdata--------------------
+  // const [currentPage,setCurrentPage]=useState(1);
+
+  // const userPerPage=5;
+  // const startIndex=(currentPage-1) * userPerPage;
+  // const lastIndex= startIndex + userPerPage
+
+
+  //----------------sort by date--------------
+
+  const[sortDate,setSort]=useState("newest")
 
   const fetchUser = async () => {
     try {
@@ -153,7 +162,7 @@ const Users = () => {
 
    const getFilterdUsers = () => {
 
-     return users.filter ((user)=>{
+     let filtered= users.filter ((user)=>{
      
        const matchRole = rolefilter === "All" || user.role === rolefilter;
     const matchBlock = blockfilter === "All" || 
@@ -161,14 +170,23 @@ const Users = () => {
     blockfilter === "unblock" && user.isBlock === false;
 
     const matchSearch = user.email.toLowerCase().includes(search.toLowerCase())
+    
 
     return matchRole && matchBlock && matchSearch
      });
-     
+     filtered.sort((a,b)=>{
+      const dateA=new Date(a.createdAt)
+      const dateB=new Date(b.createdAt)
+      return sortDate === "newest" ? dateB - dateA : dateA - dateB;
+
+     });
+     return filtered;
    
    }
 
    const  FilterdUsers = getFilterdUsers();
+  //  const paginatedUsers = FilterdUsers.slice(startIndex,lastIndex)
+   
 
 
   return (
@@ -202,6 +220,19 @@ const Users = () => {
       <option value="unblock">Unblocked</option>
     </select>
   </div>
+  <div className="flex flex-col">
+    <label className="text-sm font-medium text-gray-700 mb-1">Sort By Date</label>
+    <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+      value={sortDate}
+      onChange={(e) => setSort(e.target.value)}
+      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+    
+    </select>
+  </div>
+  
   <div className="flex flex-col flex-grow">
     <label className="text-sm font-medium text-gray-700 mb-1">Search by E-mail</label>
     <input
@@ -226,7 +257,10 @@ const Users = () => {
           <th className="px-4 py-3 text-left hidden md:table-cell">Role</th>
           <th className="px-4 py-3 text-left">Status</th>
           <th className="px-4 py-3 text-left">Action</th>
+          <th className="px-4 py-3 text-left">Created Date</th>
           <th className="px-4 py-3 text-left"></th>
+          
+
         </tr>
       </thead>
       <tbody>
@@ -260,6 +294,13 @@ const Users = () => {
                 )}
               </td>
               <td className="px-4 py-3">
+                {new Date(u.createdAt).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric"
+                })}
+              </td>
+              <td className="px-4 py-3">
                 <button
                   onClick={() => Delete(u.id)}
                   title="Delete user"
@@ -278,6 +319,41 @@ const Users = () => {
         )}
       </tbody>
     </table>
+    {/* Pagination Controls */}
+{/* <div className="flex justify-center items-center gap-2 mt-6">
+  <button
+    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+    disabled={currentPage === 1}
+    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+  >
+    Prev
+  </button>
+
+  {Array.from({ length: Math.ceil(FilterdUsers.length / userPerPage) }, (_, i) => (
+    <button
+      key={i + 1}
+      onClick={() => setCurrentPage(i + 1)}
+      className={`px-3 py-1 rounded ${
+        currentPage === i + 1 ? "bg-purple-500 text-white" : "bg-gray-200 hover:bg-gray-300"
+      }`}
+    >
+      {i + 1}
+    </button>
+  ))}
+
+  <button
+    onClick={() =>
+      setCurrentPage((prev) =>
+        prev < Math.ceil(FilterdUsers.length / userPerPage) ? prev + 1 : prev
+      )
+    }
+    disabled={currentPage === Math.ceil(FilterdUsers.length / userPerPage)}
+    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+  >
+    Next
+  </button>
+</div> */}
+
   </div>
 );
 };

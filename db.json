@@ -120,7 +120,7 @@
           ],
           "total": 1599,
           "createdAt": "2025-07-11T06:08:37.880Z",
-          "status": "pending"
+          "status": "delivered"
         },
         {
           "items": [
@@ -158,7 +158,7 @@
           ],
           "total": 598,
           "createdAt": "2025-07-11T07:29:44.334Z",
-          "status": "pending"
+          "status": "delivered"
         }
       ],
       "wishlist": [],
@@ -254,7 +254,7 @@
       "email": "user1@gmail.com",
       "password": "1234.s56",
       "role": "user",
-      "isBlock": false,
+      "isBlock": true,
       "cart": [],
       "wishlist": [],
       "orders": [
@@ -277,18 +277,6 @@
         }
       ],
       "createdAt": "2025-07-11T07:28:54.471Z"
-    },
-    {
-      "id": "89fd",
-      "name": "abcd",
-      "email": "abcd@gmail.com",
-      "password": "abcd.123",
-      "role": "user",
-      "isBlock": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": [],
-      "createdAt": "2025-07-13T15:09:43.022Z"
     },
     {
       "id": "cfd1",
