@@ -93,6 +93,12 @@ import { Trash2 } from "lucide-react";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [rolefilter,setRolefilter]=useState("All");
+  const [blockfilter,setBlockfltr]=useState("All");
+  const [search,setSearch]=useState("");
+  const [currentPage,setCurrentPage]=useState("");
+
+  const userPerPage=5;
 
   const fetchUser = async () => {
     try {
@@ -145,70 +151,135 @@ const Users = () => {
       </h2>
     );
 
-  return (
-    <div className="p-4 sm:p-6 md:p-8">
-      <h2 className="text-2xl font-bold mb-4 text-center">User Management</h2>
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className="min-w-full bg-white border border-gray-200 text-sm md:text-base">
-          <thead className="bg-gray-100 text-gray-700">
-            <tr>
-              <th className="px-4 py-3 text-left">Name</th>
-              <th className="px-4 py-3 text-left hidden sm:table-cell">Email</th>
-              <th className="px-4 py-3 text-left hidden md:table-cell">Role</th>
-              <th className="px-4 py-3 text-left">Status</th>
-              <th className="px-4 py-3 text-left">Action</th>
-              <th className="px-4 py-3 text-left"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr
-                key={u.id}
-                className="border-t border-gray-200 hover:bg-gray-50"
-              >
-                <td className="px-4 py-3">{u.name}</td>
-                <td className="px-4 py-3 hidden sm:table-cell">{u.email}</td>
-                <td className="px-4 py-3 capitalize hidden md:table-cell">
-                  {u.role}
-                </td>
-                <td className="px-4 py-3">
-                  {u.isBlock ? (
-                    <span className="text-red-600 font-semibold">Blocked</span>
-                  ) : (
-                    <span className="text-green-600 font-semibold">Active</span>
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  {u.role === "admin" ? (
-                    <span className="text-gray-500 italic">No Action</span>
-                  ) : (
-                    <button
-                      onClick={() => BlockToggle(u)}
-                      className={`px-3 py-1 rounded text-white text-sm ${
-                        u.isBlock
-                          ? "bg-green-600 hover:bg-green-700"
-                          : "bg-red-600 hover:bg-red-700"
-                      }`}
-                    >
-                      {u.isBlock ? "Unblock" : "Block"}
-                    </button>
-                    
-                  )}
-                   </td>
-                  <td>
+   const getFilterdUsers = () => {
 
+     return users.filter ((user)=>{
+     
+       const matchRole = rolefilter === "All" || user.role === rolefilter;
+    const matchBlock = blockfilter === "All" || 
+    blockfilter === "block" && user.isBlock === true || 
+    blockfilter === "unblock" && user.isBlock === false;
+
+    const matchSearch = user.email.toLowerCase().includes(search.toLowerCase())
+
+    return matchRole && matchBlock && matchSearch
+     });
+     
+   
+   }
+
+   const  FilterdUsers = getFilterdUsers();
+
+
+  return (
+  <div className="p-4 sm:p-6 md:p-8">
+    <h2 className="text-2xl font-bold mb-4 text-center">User Management</h2>
+    
+   
+    <div className="flex flex-wrap gap-6 mb-6 bg-white p-4 rounded-lg shadow-md border border-gray-200">
+  <div className="flex flex-col">
+    <label className="text-sm font-medium text-gray-700 mb-1">Filter by Role</label>
+   <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+   value={rolefilter}
+      onChange={(e) => setRolefilter(e.target.value)}
+      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option value="All">All</option>
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+    </select>
+  </div>
+
+  <div className="flex flex-col">
+    <label className="text-sm font-medium text-gray-700 mb-1">Filter by Status</label>
+    <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+      value={blockfilter}
+      onChange={(e) => setBlockfltr(e.target.value)}
+      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option value="All">All</option>
+      <option value="block">Blocked</option>
+      <option value="unblock">Unblocked</option>
+    </select>
+  </div>
+  <div className="flex flex-col flex-grow">
+    <label className="text-sm font-medium text-gray-700 mb-1">Search by E-mail</label>
+    <input
+      type="text"
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        // setCurrentPage(1); // Reset to page 1 on search
+      }}
+      placeholder="Enter email..."
+      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 w-full"
+    />
+  </div>
+</div>
+
+   
+    <table className="min-w-full bg-white border border-gray-200 text-sm md:text-base">
+      <thead className="bg-gray-100 text-gray-700">
+        <tr>
+          <th className="px-4 py-3 text-left">Name</th>
+          <th className="px-4 py-3 text-left hidden sm:table-cell">Email</th>
+          <th className="px-4 py-3 text-left hidden md:table-cell">Role</th>
+          <th className="px-4 py-3 text-left">Status</th>
+          <th className="px-4 py-3 text-left">Action</th>
+          <th className="px-4 py-3 text-left"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {FilterdUsers.length > 0 ? (
+          FilterdUsers.map((u) => (
+            <tr key={u.id} className="border-t border-gray-200 hover:bg-gray-50">
+              <td className="px-4 py-3">{u.name}</td>
+              <td className="px-4 py-3 hidden sm:table-cell">{u.email}</td>
+              <td className="px-4 py-3 capitalize hidden md:table-cell">{u.role}</td>
+              <td className="px-4 py-3">
+                {u.isBlock ? (
+                  <span className="text-red-600 font-semibold">Blocked</span>
+                ) : (
+                  <span className="text-green-600 font-semibold">Active</span>
+                )}
+              </td>
+              <td className="px-4 py-3">
+                {u.role === "admin" ? (
+                  <span className="text-gray-500 italic">No Action</span>
+                ) : (
                   <button
-                   onClick={()=>Delete(u.id)}
-                   title="Delete user"
-                  ><Trash2 className="w-5 h-5 text-gray-600 hover:text-red-600 transition" /></button>
-                 </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+                    onClick={() => BlockToggle(u)}
+                    className={`px-3 py-1 rounded text-white text-sm ${
+                      u.isBlock
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-red-600 hover:bg-red-700"
+                    }`}
+                  >
+                    {u.isBlock ? "Unblock" : "Block"}
+                  </button>
+                )}
+              </td>
+              <td className="px-4 py-3">
+                <button
+                  onClick={() => Delete(u.id)}
+                  title="Delete user"
+                >
+                  <Trash2 className="w-5 h-5 text-gray-600 hover:text-red-600 transition" />
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="6" className="text-center p-4 text-gray-500">
+              No users found
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+);
 };
 
 export default Users;
