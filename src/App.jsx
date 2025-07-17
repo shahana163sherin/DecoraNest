@@ -16,6 +16,8 @@ import OrdersAdmin from "./admin/Orders";
 import ProductsAdmin from "./admin/Products";
 import  Dashboard from './admin/Dashboard';
 import AdminLayout from './admin/AdminLayout';
+import AddOrEditProduct from "./admin/AddOrEditProduct";
+
 
 
 import { useCart } from "./context/CartContext";
@@ -82,7 +84,7 @@ const App = () => {
               </Link>
             </li>
 
-            {!user ? (
+            {!user  || isAdmin ?(
               <>
                 <li>
                   <Link to="/login" onClick={closeMenu} className="hover:text-white">
@@ -165,6 +167,10 @@ const App = () => {
           <Route path="orderadmin" element={<OrdersAdmin/>}/>
           <Route path="product" element={<ProductsAdmin/>}/>
           <Route path="users" element={<Users/>}/>
+
+          <Route path="product/edit-product/:id" element={<AddOrEditProduct/>}/>
+          <Route path="product/add-product" element={<AddOrEditProduct/>}/>
+
           </Route>
           ):(
               <Route path="/admin/*" element={<Navigate to="/" />} />
