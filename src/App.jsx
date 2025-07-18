@@ -84,7 +84,7 @@ const App = () => {
               </Link>
             </li>
 
-            {!user  || isAdmin ?(
+            {!user ?(
               <>
                 <li>
                   <Link to="/login" onClick={closeMenu} className="hover:text-white">

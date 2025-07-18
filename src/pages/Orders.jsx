@@ -68,6 +68,8 @@ const Order = () => {
         return "bg-red-100 text-red-800 border border-red-300";
       case "delivered":
         return "bg-green-100 text-green-800 border border-green-300";
+      case "processing":
+        return "bg-blue-200 text-blue-800 border border-blue-300";
       default:
         return "bg-gray-200 text-gray-700 border border-gray-300";
     }
@@ -79,7 +81,7 @@ const Order = () => {
 
       
       <div className="flex justify-center gap-4 mb-10 flex-wrap">
-        {["All", "Pending", "Cancelled", "Delivered"].map((status) => (
+        {["All", "Pending", "Processing","Cancelled", "Delivered"].map((status) => (
           <button
             key={status}
             onClick={() => setFilter(status)}
