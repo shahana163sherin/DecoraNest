@@ -287,7 +287,25 @@
       "isBlock": false,
       "cart": [],
       "wishlist": [],
-      "orders": [],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "5",
+              "name": " Double Layer Curtains",
+              "price": 299,
+              "category": "Textiles",
+              "image": "/assets/cur2.jpg",
+              "description": "Elegant dual-layer curtains with sheer and opaque layers. Offers privacy, light control, and a sophisticated touch to your interiors.",
+              "quantity": 1
+            }
+          ],
+          "total": 299,
+          "address": "fgfght",
+          "createdAt": "2025-07-18T03:54:47.606Z",
+          "status": "pending"
+        }
+      ],
       "createdAt": "2025-07-16T05:14:11.972Z"
     }
   ]

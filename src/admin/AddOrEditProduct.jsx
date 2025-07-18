@@ -233,7 +233,7 @@ const AddOrEditProduct = () => {
         });
         toast.success("Product added successfully!");
       }
-      navigate("/admin/products");
+      navigate("/admin/product");
     } catch (error) {
       console.error("Error saving product", error);
       toast.error("Failed to save product");
@@ -241,83 +241,107 @@ const AddOrEditProduct = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 px-4 py-6 bg-white shadow-lg rounded-xl">
-      <h2 className="text-2xl font-bold mb-6 text-center">
+    <div className="max-w-2xl mx-auto mt-10 px-6 py-8 bg-white shadow-xl rounded-2xl">
+      <h2 className="text-3xl font-semibold mb-8 text-center text-gray-800">
         {isEdit ? "Edit Product" : "Add New Product"}
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Product Name */}
         <div>
-          <label className="block mb-1 font-medium">Product Name</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Product Name
+          </label>
           <input
             type="text"
             name="name"
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter product name"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
+        {/* Image URL */}
         <div>
-          <label className="block mb-1 font-medium">Image URL</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Image URL
+          </label>
           <input
             type="url"
             name="image"
             value={form.image}
             onChange={handleChange}
             required
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Paste image URL here"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
+        {/* Image Preview */}
         {form.image && (
-          <img
-            src={form.image}
-            alt="Preview"
-            className="w-32 h-32 object-cover border rounded"
-          />
+          <div className="flex justify-center mt-4">
+            <img
+              src={form.image}
+              alt="Preview"
+              className="w-40 h-40 object-cover rounded-lg shadow"
+            />
+          </div>
         )}
 
+        {/* Category */}
         <div>
-          <label className="block mb-1 font-medium">Category</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Category
+          </label>
           <input
             type="text"
             name="category"
             value={form.category}
             onChange={handleChange}
             required
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="e.g. Wall Decor, Vase"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
+        {/* Price */}
         <div>
-          <label className="block mb-1 font-medium">Price (₹)</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Price (₹)
+          </label>
           <input
             type="number"
             name="price"
             value={form.price}
             onChange={handleChange}
             required
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter product price"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
+        {/* Description */}
         <div>
-          <label className="block mb-1 font-medium">Description</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Description
+          </label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
             required
             rows="4"
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Write a short product description..."
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           ></textarea>
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 shadow-md"
         >
           {isEdit ? "Update Product" : "Add Product"}
         </button>
