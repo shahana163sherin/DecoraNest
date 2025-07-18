@@ -84,7 +84,7 @@ const App = () => {
               </Link>
             </li>
 
-            {!user ?(
+            {!user &&(
               <>
                 <li>
                   <Link to="/login" onClick={closeMenu} className="hover:text-white">
@@ -97,8 +97,9 @@ const App = () => {
                   </Link>
                 </li>
               </>
-            ) : (
-              <>
+            ) }
+            {user && (
+               <>
                 <li>
                   <Link to="/orders" onClick={closeMenu} className="hover:text-white">
                     Orders
@@ -114,7 +115,9 @@ const App = () => {
                   </button>
                 </li>
               </>
-            )}
+            )  }
+             
+            
 
             <li className="relative">
               <Link to="/wishlist" onClick={closeMenu} className="hover:text-white flex items-center gap-1">

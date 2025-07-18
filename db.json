@@ -95,6 +95,15 @@
       "category": "Textiles",
       "image": "/assets/curtain.jpg",
       "description": "Two-layered modern curtains featuring flowing fabric for depth and elegance. Balances light and privacy effortlessly."
+    },
+    {
+      "id": "48c1",
+      "name": "Natural Pampas Grass Bunch",
+      "image": "https://i.postimg.cc/gkft4rdf/pampas-grass.jpg",
+      "category": "Dried Grass Decor",
+      "price": "799",
+      "description": " dnbnkskejdik",
+      "createdAt": "2025-07-18T10:41:25.840Z"
     }
   ],
   "users": [
@@ -218,7 +227,7 @@
       "email": "salah@gmail.com",
       "password": "sala1.23",
       "role": "user",
-      "isBlock": false,
+      "isBlock": true,
       "cart": [],
       "wishlist": [],
       "orders": [
@@ -300,6 +309,32 @@
           "address": "calicut",
           "createdAt": "2025-07-18T09:22:54.974Z",
           "status": "cancelled"
+        },
+        {
+          "items": [
+            {
+              "id": "5",
+              "name": " Double Layer Curtains",
+              "price": 299,
+              "category": "Textiles",
+              "image": "/assets/cur2.jpg",
+              "description": "Elegant dual-layer curtains with sheer and opaque layers. Offers privacy, light control, and a sophisticated touch to your interiors.",
+              "quantity": 2
+            },
+            {
+              "id": "4",
+              "name": " Artistic Metal Tripod Side Table",
+              "price": 12299,
+              "category": "Furniture",
+              "image": "/assets/fut.webp",
+              "description": "A stylish and sturdy accent table with a sleek metal tripod base. Ideal for living rooms, reading corners, or beside your sofa.",
+              "quantity": 2
+            }
+          ],
+          "total": 25196,
+          "address": "valanchery,malappuram",
+          "createdAt": "2025-07-18T10:32:35.658Z",
+          "status": "pending"
         }
       ],
       "createdAt": "2025-07-11T07:28:54.471Z"
