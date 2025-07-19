@@ -89,14 +89,6 @@
       "description": "Stylish and comfy chair with a bold wooden frame and textured upholstery — perfect for modern or retro interiors."
     },
     {
-      "id": "12",
-      "name": " Double Layer-modern- Curtains",
-      "price": 299,
-      "category": "Textiles",
-      "image": "/assets/curtain.jpg",
-      "description": "Two-layered modern curtains featuring flowing fabric for depth and elegance. Balances light and privacy effortlessly."
-    },
-    {
       "id": "48c1",
       "name": "Natural Pampas Grass Bunch",
       "image": "https://i.postimg.cc/gkft4rdf/pampas-grass.jpg",
@@ -104,6 +96,15 @@
       "price": "799",
       "description": " dnbnkskejdik",
       "createdAt": "2025-07-18T10:41:25.840Z"
+    },
+    {
+      "id": "d735",
+      "name": "Boho pampas wall bouqet",
+      "image": "https://m.media-amazon.com/images/I/71rXlQZkCiL._SY879_.jpg",
+      "category": "Wall Decor",
+      "price": "1499",
+      "description": "Beautiful and luxurious Bouqet",
+      "createdAt": "2025-07-19T20:32:10.095Z"
     }
   ],
   "users": [
@@ -129,7 +130,7 @@
           ],
           "total": 1599,
           "createdAt": "2025-07-11T06:08:37.880Z",
-          "status": "delivered"
+          "status": "pending"
         },
         {
           "items": [
@@ -144,7 +145,7 @@
           ],
           "total": 1599,
           "createdAt": "2025-07-11T06:11:26.096Z",
-          "status": "pending"
+          "status": "processing"
         },
         {
           "items": [
@@ -181,7 +182,130 @@
       "role": "user",
       "isBlock": false,
       "cart": [],
-      "orders": [],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "3",
+              "name": " Hanging Diya Lamp",
+              "price": 299,
+              "category": "Lighting",
+              "image": "/assets/diwali.jpeg",
+              "description": "Traditional meets modern with this handcrafted diya-style hanging lamp. Adds a warm and spiritual glow to any room or entryway.",
+              "quantity": 3
+            }
+          ],
+          "total": 897,
+          "address": "Malappuram",
+          "createdAt": "2025-07-19T17:56:57.556Z",
+          "status": "processing"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 1
+            }
+          ],
+          "total": 1599,
+          "address": "gf",
+          "createdAt": "2025-07-19T18:23:25.148Z",
+          "status": "cancelled"
+        },
+        {
+          "items": [
+            {
+              "id": "48c1",
+              "name": "Natural Pampas Grass Bunch",
+              "image": "https://i.postimg.cc/gkft4rdf/pampas-grass.jpg",
+              "category": "Dried Grass Decor",
+              "price": "799",
+              "description": " dnbnkskejdik",
+              "createdAt": "2025-07-18T10:41:25.840Z",
+              "quantity": 2
+            },
+            {
+              "id": "11",
+              "name": "  Mid-Century Textured Lounge Chair",
+              "price": 17299,
+              "category": "Furniture",
+              "image": "/assets/frntr.jpg",
+              "description": "Stylish and comfy chair with a bold wooden frame and textured upholstery — perfect for modern or retro interiors.",
+              "quantity": 1
+            },
+            {
+              "id": "10",
+              "name": " Dreamscape Grey Framed Canvas ",
+              "price": 3299,
+              "category": "Wall Decor",
+              "image": "/assets/wall1.webp",
+              "description": "A dreamy blend of soft greys and abstract textures, framed in a sleek black border. Brings calm sophistication to any wall.",
+              "quantity": 1
+            },
+            {
+              "id": "9",
+              "name": " Artificial olive tree",
+              "price": 3299,
+              "category": "IndoorPlant",
+              "image": "/assets/plant2.jpg",
+              "description": "Realistic and maintenance-free, this faux olive tree adds Mediterranean charm to your home without the upkeep.",
+              "quantity": 1
+            }
+          ],
+          "total": 25495,
+          "address": "kochi",
+          "createdAt": "2025-07-19T19:08:19.939Z",
+          "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 1
+            }
+          ],
+          "total": 1599,
+          "address": "fgs",
+          "createdAt": "2025-07-19T20:47:33.133Z",
+          "status": "delivered"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 1
+            },
+            {
+              "id": "3",
+              "name": " Hanging Diya Lamp",
+              "price": 299,
+              "category": "Lighting",
+              "image": "/assets/diwali.jpeg",
+              "description": "Traditional meets modern with this handcrafted diya-style hanging lamp. Adds a warm and spiritual glow to any room or entryway.",
+              "quantity": 1
+            }
+          ],
+          "total": 1898,
+          "address": "fgjfh",
+          "createdAt": "2025-07-19T21:21:01.782Z",
+          "status": "pending"
+        }
+      ],
       "wishlist": [],
       "createdAt": "2025-07-09T10:00:00Z"
     },
@@ -218,7 +342,72 @@
       "isBlock": false,
       "cart": [],
       "wishlist": [],
-      "orders": [],
+      "orders": [
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 1
+            },
+            {
+              "id": "5",
+              "name": " Double Layer Curtains",
+              "price": 299,
+              "category": "Textiles",
+              "image": "/assets/cur2.jpg",
+              "description": "Elegant dual-layer curtains with sheer and opaque layers. Offers privacy, light control, and a sophisticated touch to your interiors.",
+              "quantity": 1
+            },
+            {
+              "id": "9",
+              "name": " Artificial olive tree",
+              "price": 3299,
+              "category": "IndoorPlant",
+              "image": "/assets/plant2.jpg",
+              "description": "Realistic and maintenance-free, this faux olive tree adds Mediterranean charm to your home without the upkeep.",
+              "quantity": 1
+            },
+            {
+              "id": "48c1",
+              "name": "Natural Pampas Grass Bunch",
+              "image": "https://i.postimg.cc/gkft4rdf/pampas-grass.jpg",
+              "category": "Dried Grass Decor",
+              "price": "799",
+              "description": " dnbnkskejdik",
+              "createdAt": "2025-07-18T10:41:25.840Z",
+              "quantity": 1
+            },
+            {
+              "id": "d735",
+              "name": "Boho pampas wall bouqet",
+              "image": "https://m.media-amazon.com/images/I/71rXlQZkCiL._SY879_.jpg",
+              "category": "Wall Decor",
+              "price": "1499",
+              "description": "Beautiful and luxurious Bouqet",
+              "createdAt": "2025-07-19T20:32:10.095Z",
+              "quantity": 1
+            },
+            {
+              "id": "8",
+              "name": " Modern Ceramic Globe Table Lamp",
+              "price": 5000,
+              "category": "Lighting",
+              "image": "/assets/lighting2.jpg",
+              "description": "A spherical ceramic lamp with a soft matte finish and warm glow. Ideal for desks, nightstands, or cozy corners.",
+              "quantity": 1
+            }
+          ],
+          "total": 12495,
+          "address": "valanchery",
+          "createdAt": "2025-07-19T21:22:44.478Z",
+          "status": "pending"
+        }
+      ],
       "createdAt": "2025-07-09T15:33:54.455Z"
     },
     {
@@ -252,7 +441,7 @@
           ],
           "total": 2598,
           "createdAt": "2025-07-11T14:53:38.415Z",
-          "status": "delivered"
+          "status": "pending"
         }
       ],
       "createdAt": "2025-07-11T06:07:56.077Z"
@@ -334,7 +523,7 @@
           "total": 25196,
           "address": "valanchery,malappuram",
           "createdAt": "2025-07-18T10:32:35.658Z",
-          "status": "pending"
+          "status": "delivered"
         }
       ],
       "createdAt": "2025-07-11T07:28:54.471Z"
@@ -350,6 +539,18 @@
       "wishlist": [],
       "orders": [],
       "createdAt": "2025-07-16T05:14:11.972Z"
+    },
+    {
+      "id": "23ba",
+      "name": "admin2",
+      "email": "admin2@gmail.com",
+      "password": "admin2.2",
+      "role": "admin",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": [],
+      "createdAt": "2025-07-19T18:54:35.726Z"
     }
   ]
 }

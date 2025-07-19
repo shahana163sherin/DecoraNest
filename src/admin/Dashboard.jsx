@@ -52,7 +52,7 @@ const monthlyRevenueData = useMemo(() => {
     }
   });
 
-  // Convert object to array for Recharts
+ 
   return Object.entries(monthMap).map(([month, revenue]) => ({
     month,
     revenue
@@ -74,11 +74,11 @@ const topProducts = useMemo(() => {
     }
   });
 
-  // Convert to array and sort by revenue descending
+ 
   return Object.entries(productMap)
     .map(([name, revenue]) => ({ name, revenue }))
     .sort((a, b) => b.revenue - a.revenue)
-    .slice(0, 5); // Top 5 products
+    .slice(0, 5); 
 }, [Allorders]);
 
 
@@ -89,7 +89,7 @@ return(
   <h2 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h2>
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    {/* Total Users */}
+  
     <div className="bg-white p-4 rounded-2xl shadow-md text-center">
       <p className="text-xl font-semibold text-gray-700">Total Users</p>
       <p className="text-3xl font-bold text-blue-600">{users.length}</p>
@@ -101,7 +101,7 @@ return(
     </div>
 
 
-    {/* Total Orders */}
+    
 <div className="bg-white p-4 rounded-2xl shadow-md text-center">
   <p className="text-xl font-semibold text-gray-700">Total Orders</p>
   <p className="text-3xl font-bold text-green-600">{Allorders.length}</p>
@@ -118,13 +118,12 @@ return(
 </div>
 
 
-    {/* Total Products */}
     <div className="bg-white p-4 rounded-2xl shadow-md text-center">
       <p className="text-xl font-semibold text-gray-700">Total Products</p>
       <p className="text-3xl font-bold text-purple-600">{products.length}</p>
     </div>
 
-    {/* Total Revenue */}
+    
     <div className="bg-white p-4 rounded-2xl shadow-md text-center">
       <p className="text-xl font-semibold text-gray-700">Total Revenue</p>
       <p className="text-3xl font-bold text-yellow-600">₹{TotalRevenue}</p>
@@ -153,7 +152,7 @@ return(
 
 
 <div className="w-full h-[350px] bg-white p-6 rounded-2xl shadow-lg mt-10">
-  <h3 className="text-2xl font-bold mb-6 text-center text-gray-700">🔥 Top-Selling Products</h3>
+  <h3 className="text-2xl font-bold mb-6 text-center text-gray-700"> Top-Selling Products</h3>
 
   <ResponsiveContainer width="100%" height="100%">
     <BarChart data={topProducts} layout="vertical" margin={{ top: 10, right: 30, left: 50, bottom: 0 }}>
@@ -162,7 +161,7 @@ return(
       <YAxis dataKey="name" type="category" tick={{ fontSize: 14 }} />
       <Tooltip formatter={(value) => [`₹${value}`, "Revenue"]} />
       <Legend />
-      <Bar dataKey="revenue" fill="#60a5fa" barSize={25} />
+      <Bar dataKey="revenue" fill="#0e488fff" barSize={25} />
     </BarChart>
   </ResponsiveContainer>
 </div>

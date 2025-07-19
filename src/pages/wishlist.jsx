@@ -13,7 +13,7 @@ const Wishlist = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (!user || user.role === "admin") {
       setTimeout(()=>
         alert("please login"),2000
       )

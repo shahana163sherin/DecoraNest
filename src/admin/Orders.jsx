@@ -13,6 +13,9 @@ const OrdersAdmin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [orderToDelete, setOrderToDelete] = useState(null);
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -41,12 +44,8 @@ const OrdersAdmin = () => {
     const allOrders = ordersData
       .filter((user) => {
         const usernameMatch = user.name?.toLowerCase().includes(search.toLowerCase());
-        const productMatch = user.orders?.some((order) =>
-          order.items?.some((item) =>
-            item.name?.toLowerCase().includes(search.toLowerCase())
-          )
-        );
-        return search === "" || usernameMatch || productMatch;
+        
+        return search === "" || usernameMatch;
       })
       .flatMap((user) =>
         (user.orders || []).map((order, index) => ({
@@ -96,9 +95,15 @@ const OrdersAdmin = () => {
     }
   };
 
-  const deleteOrder = async (userId, orderIndex) => {
-    const confirm = window.confirm("Are you sure you want to delete this order?");
-    if (!confirm) return;
+  const handleDeleteClick = (userId, orderIndex) => {
+    setOrderToDelete({ userId, orderIndex });
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteOrder = async () => {
+    if (!orderToDelete) return;
+
+    const { userId, orderIndex } = orderToDelete;
 
     try {
       const user = ordersData.find((u) => u.id === userId);
@@ -116,6 +121,9 @@ const OrdersAdmin = () => {
     } catch (err) {
       console.error("Error deleting order", err);
       toast.error("Failed to delete order");
+    } finally {
+      setShowDeleteModal(false);
+      setOrderToDelete(null);
     }
   };
 
@@ -134,68 +142,67 @@ const OrdersAdmin = () => {
     <div className="p-6 space-y-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">All Orders</h1>
 
-      {/* Filters */}
-    <div className="p-4 bg-white shadow-sm rounded-lg mb-6">
-  <h2 className="text-xl font-semibold text-gray-800 mb-4">Filter Orders</h2>
-  
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    {/* Search */}
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-600 mb-1">Search</label>
-      <input
-        type="text"
-        placeholder="Username or product name"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-    </div>
+      
+      <div className="p-4 bg-white shadow-sm rounded-lg mb-6">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Filter Orders</h2>
 
-    {/* Category */}
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-600 mb-1">Category</label>
-      <select
-        value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        {categories.map((cat, i) => (
-          <option key={i} value={cat}>{cat}</option>
-        ))}
-      </select>
-    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-600 mb-1">Search</label>
+            <input
+              type="text"
+              placeholder="Username"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-    {/* Status */}
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-600 mb-1">Status</label>
-      <select
-        value={sortStatus}
-        onChange={(e) => setSortStatus(e.target.value)}
-        className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        {["All", "Pending", "Processing", "Delivered", "Cancelled"].map((s) => (
-          <option key={s} value={s}>{s}</option>
-        ))}
-      </select>
-    </div>
+       
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-600 mb-1">Category</label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {categories.map((cat, i) => (
+                <option key={i} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
 
-    {/* Sort Order */}
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-600 mb-1">Sort By</label>
-      <select
-        value={sortOrder}
-        onChange={(e) => setSortOrder(e.target.value)}
-        className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="newest">Newest First</option>
-        <option value="oldest">Oldest First</option>
-      </select>
-    </div>
-  </div>
-</div>
+        
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-600 mb-1">Status</label>
+            <select
+              value={sortStatus}
+              onChange={(e) => setSortStatus(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {["All", "Pending", "Processing", "Delivered", "Cancelled"].map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
 
+         
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-600 mb-1">Sort By</label>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-      {/* Orders List */}
+      
       {paginatedOrders.map((order, index) => {
         const user = order.user;
         return (
@@ -220,7 +227,7 @@ const OrdersAdmin = () => {
                   </select>
                 )}
                 <button
-                  onClick={() => deleteOrder(user.id, order.index)}
+                  onClick={() => handleDeleteClick(user.id, order.index)}
                   className="text-red-600 font-semibold hover:underline"
                 >
                   Delete
@@ -245,7 +252,7 @@ const OrdersAdmin = () => {
         );
       })}
 
-      {/* Pagination */}
+   
       {filteredOrders.length > itemsPerPage && (
         <div className="flex justify-center mt-6 space-x-2">
           <button
@@ -265,6 +272,33 @@ const OrdersAdmin = () => {
           >
             Next
           </button>
+        </div>
+      )}
+
+   
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Confirm Deletion</h3>
+            <p className="mb-6 text-gray-700">Are you sure you want to delete this order?</p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setOrderToDelete(null);
+                }}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteOrder}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

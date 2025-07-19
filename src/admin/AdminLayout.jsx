@@ -9,14 +9,13 @@ const AdminLayout = () => {
   const navigate=useNavigate();
 
   function handleLogout(){
-    Logout();
+   Logout()
     navigate("/login")
-
   }
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
+   
       <aside
         className={`fixed z-40 top-0 left-0 h-full w-72 bg-gradient-to-b from-blue-200 to-green-100 text-gray-800 p-6 shadow-lg transform transition-transform duration-300 ease-in-out 
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
@@ -65,9 +64,9 @@ const AdminLayout = () => {
 
       </aside>
 
-      {/* Main Content */}
+    
     <div className="flex-1 overflow-auto">
-        {/* Mobile Menu Button */}
+     
         <div className="md:hidden p-4">
           <button
             onClick={() => setSidebarOpen(true)}

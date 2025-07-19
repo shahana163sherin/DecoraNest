@@ -1,91 +1,3 @@
-// import { useEffect,useState } from "react";
-// import axios from "../api/axiosInstance"
-
-// const Users = () =>{
-//     const [users,setUsers]=useState([])
-//     const[loading,setLoading]=useState(false)
-
-
-//     const fetchUser = async ()=>{
-//         try{
-//             setLoading(true)
-//             const res =await  axios.get("/users")
-//             setUsers(res.data)
-//             console.log("Fetched users:", res.data);
-//         }
-//         catch(err){
-//             console.error("Error in fetching user",err)
-//         }
-//         finally{
-//             setLoading(false)
-//         }
-        
-
-//     }
-    
-
-
-// useEffect(()=>{
-//    fetchUser();
-// },[])
-
-// const BlockToggle = async (user)=>{
-//     try {
-//         await axios.patch(`/users/${user.id}`,{
-//             isBlock:!user.isBlock,
-//         })
-//         fetchUser();
-
-//     }
-//     catch (err){
-//         console.error("Error in Updating",err)
-//     }
-   
-// }
-//    if(loading)return<h2>Loading....</h2>
-
-// return(
-//     <div>
-//         <table>
-//             <thead>
-//             <tr>
-//                 <th>Name</th>
-//                 <th>Email</th>
-//                 <th>Role</th>
-//                 <th>Status</th>
-//                 <th>Action</th>
-//             </tr>
-//             </thead>
-//             <tbody>
-//                 {users.map((u)=>(
-//                        <tr key={u.id}>
-//                     <td>{u.name}</td>
-//                     <td>{u.email}</td>
-//                     <td>{u.role}</td>
-//                     <td>{u.isBlock?"Blocked":"Active"}</td>
-//                     <td>{u.role === "admin"?(
-//                         <span>No Action</span>
-//                     ):
-//                     (
-//                         <button onClick={()=>BlockToggle(u)}>
-//                            {u.isBlock?"UnBlock":"Block"}
-
-//                         </button>
-//                     )}</td>
-//                 </tr>
-//                 )
-             
-//                 )}
-//             </tbody>
-           
-//         </table>
-//     </div>
-    
-// );
-// }
-// export default Users
-
-
 import { useEffect, useState } from "react";
 import axios from "../api/axiosInstance";
 import { Trash2 } from "lucide-react";
@@ -97,14 +9,7 @@ const Users = () => {
   const [blockfilter,setBlockfltr]=useState("All");
   const [search,setSearch]=useState("");
 
-  //-------------paginationdata--------------------
-  // const [currentPage,setCurrentPage]=useState(1);
-
-  // const userPerPage=5;
-  // const startIndex=(currentPage-1) * userPerPage;
-  // const lastIndex= startIndex + userPerPage
-
-
+  
   //----------------sort by date--------------
 
   const[sortDate,setSort]=useState("newest")
@@ -185,7 +90,7 @@ const Users = () => {
    }
 
    const  FilterdUsers = getFilterdUsers();
-  //  const paginatedUsers = FilterdUsers.slice(startIndex,lastIndex)
+
    
 
 
@@ -200,7 +105,7 @@ const Users = () => {
    <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
    value={rolefilter}
       onChange={(e) => setRolefilter(e.target.value)}
-      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      
     >
       <option value="All">All</option>
       <option value="admin">Admin</option>
@@ -213,7 +118,7 @@ const Users = () => {
     <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
       value={blockfilter}
       onChange={(e) => setBlockfltr(e.target.value)}
-      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+     
     >
       <option value="All">All</option>
       <option value="block">Blocked</option>
@@ -225,7 +130,7 @@ const Users = () => {
     <select className="px-4 py-2 border rounded text-purple-600 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
       value={sortDate}
       onChange={(e) => setSort(e.target.value)}
-      // className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      
     >
       <option value="newest">Newest first</option>
       <option value="oldest">Oldest first</option>
@@ -240,7 +145,7 @@ const Users = () => {
       value={search}
       onChange={(e) => {
         setSearch(e.target.value);
-        // setCurrentPage(1); // Reset to page 1 on search
+        
       }}
       placeholder="Enter email..."
       className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 w-full"
@@ -319,40 +224,7 @@ const Users = () => {
         )}
       </tbody>
     </table>
-    {/* Pagination Controls */}
-{/* <div className="flex justify-center items-center gap-2 mt-6">
-  <button
-    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-    disabled={currentPage === 1}
-    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
-  >
-    Prev
-  </button>
-
-  {Array.from({ length: Math.ceil(FilterdUsers.length / userPerPage) }, (_, i) => (
-    <button
-      key={i + 1}
-      onClick={() => setCurrentPage(i + 1)}
-      className={`px-3 py-1 rounded ${
-        currentPage === i + 1 ? "bg-purple-500 text-white" : "bg-gray-200 hover:bg-gray-300"
-      }`}
-    >
-      {i + 1}
-    </button>
-  ))}
-
-  <button
-    onClick={() =>
-      setCurrentPage((prev) =>
-        prev < Math.ceil(FilterdUsers.length / userPerPage) ? prev + 1 : prev
-      )
-    }
-    disabled={currentPage === Math.ceil(FilterdUsers.length / userPerPage)}
-    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
-  >
-    Next
-  </button>
-</div> */}
+   
 
   </div>
 );

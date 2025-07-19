@@ -15,7 +15,7 @@ const Cart = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handlePlaceOrder = async () => {
-    if (!user || !user.id) {
+    if (!user || !user.id || user.role==="admin") {
     alert("Please log in to place an order.");
     navigate("/login");
     return;
