@@ -60,7 +60,7 @@ const AddOrEditProduct = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Product Name */}
+        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Product Name
@@ -76,7 +76,7 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-        {/* Image URL */}
+  
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Image URL
@@ -92,7 +92,7 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-        {/* Image Preview */}
+   
         {form.image && (
           <div className="flex justify-center mt-4">
             <img
@@ -103,7 +103,7 @@ const AddOrEditProduct = () => {
           </div>
         )}
 
-        {/* Category */}
+        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Category
@@ -119,7 +119,7 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-        {/* Price */}
+        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Price (₹)
@@ -135,7 +135,7 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-        {/* Description */}
+      
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Description

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
@@ -9,6 +10,8 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [message, setMessage] = useState(false);
+    const { user } = useAuth();
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -22,6 +25,8 @@ const ProductDetails = () => {
     };
     fetchProduct();
   }, [id, navigate]);
+
+   const isAdmin = user?.role === "admin";
 
   if (!product) return <h2 className="text-center text-lg mt-10">Loading...</h2>;
 
@@ -52,6 +57,10 @@ const ProductDetails = () => {
 
           <button
             onClick={() => {
+               if (isAdmin) {
+                  alert("Admins cannot add products to cart.");
+                  return;
+                }
               dispatch({ type: "AddToCart", payload: product });
               setMessage(`${product.name} Added to cart`);
               setTimeout(() => {

@@ -8,10 +8,13 @@ const AdminLayout = () => {
   const {Logout}=useAuth();
   const navigate=useNavigate();
 
-  function handleLogout(){
-   Logout()
-    navigate("/login")
-  }
+  
+
+  async function handleLogout() {
+  await Logout();           
+  navigate("/login");       
+}
+
 
   return (
     <div className="flex h-screen overflow-hidden">

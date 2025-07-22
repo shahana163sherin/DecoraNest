@@ -68,24 +68,48 @@ const navigate=useNavigate();
 
 
 
+// const Logout = async () => {
+//   try {
+//     if (user?.id) {
+//       await axios.patch(`http://localhost:3000/users/${user.id}`, {
+//         cart: [],
+//         wishlist: []
+//       });
+//     }
+
+//     localStorage.removeItem("user");
+//     localStorage.removeItem("cart");
+//     localStorage.removeItem("wishlist");
+
+//     setUser(null);
+ 
+//   } catch (error) {
+//     console.error("Logout failed:", error);
+//   }
+// };
+
 const Logout = async () => {
   try {
-    if (user?.id) {
+    if (user?.id && user?.role !== "admin") {
+    
       await axios.patch(`http://localhost:3000/users/${user.id}`, {
         cart: [],
         wishlist: []
       });
     }
 
+    
     localStorage.removeItem("user");
     localStorage.removeItem("cart");
     localStorage.removeItem("wishlist");
 
     setUser(null);
+
   } catch (error) {
     console.error("Logout failed:", error);
   }
 };
+
 
     return (
 <>

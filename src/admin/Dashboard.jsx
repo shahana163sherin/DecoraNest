@@ -3,7 +3,16 @@ import axios from '../api/axiosInstance'
 import { Clock, CheckCircle,UserCheck} from "lucide-react";
 import { format, parseISO } from "date-fns";
 import {
-  LineChart, BarChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,Legend} from "recharts";
+  LineChart,
+  BarChart,
+  Bar,
+  Line, 
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend} from "recharts";
 
 
 
@@ -44,7 +53,7 @@ const monthlyRevenueData = useMemo(() => {
 
   Allorders.forEach(order => {
     if (order.status === "delivered") {
-      const month = format(parseISO(order.createdAt), "MMM yyyy"); // e.g. "Jul 2025"
+      const month = format(parseISO(order.createdAt), "MMM yyyy"); 
       if (!monthMap[month]) {
         monthMap[month] = 0;
       }
@@ -161,7 +170,7 @@ return(
       <YAxis dataKey="name" type="category" tick={{ fontSize: 14 }} />
       <Tooltip formatter={(value) => [`₹${value}`, "Revenue"]} />
       <Legend />
-      <Bar dataKey="revenue" fill="#0e488fff" barSize={25} />
+      <Bar dataKey="revenue" fill="#271581ff" barSize={25} />
     </BarChart>
   </ResponsiveContainer>
 </div>

@@ -2,10 +2,10 @@
   "products": [
     {
       "id": "1",
-      "name": "Middlten Grey & Gold Wallclock",
+      "name": "Middlten Grey & Gold ",
       "price": 1999,
       "category": "Wall Decor",
-      "image": "/assets/wallcl.webp",
+      "image": "https://i.postimg.cc/ncZYcr8P/img1.jpg",
       "description": "A modern timepiece featuring a matte grey base and elegant golden accents.Its minimal design blends seamlessly into contemporary or classic interiors."
     },
     {
@@ -105,6 +105,15 @@
       "price": "1499",
       "description": "Beautiful and luxurious Bouqet",
       "createdAt": "2025-07-19T20:32:10.095Z"
+    },
+    {
+      "id": "347b",
+      "name": "ffg",
+      "image": "https://i.postimg.cc/ncZYcr8P/img1.jpg",
+      "category": "Wall Decor",
+      "price": "345",
+      "description": "fg",
+      "createdAt": "2025-07-22T05:49:42.723Z"
     }
   ],
   "users": [
@@ -129,23 +138,8 @@
             }
           ],
           "total": 1599,
-          "createdAt": "2025-07-11T06:08:37.880Z",
-          "status": "pending"
-        },
-        {
-          "items": [
-            {
-              "id": "2",
-              "name": "Rustic Wooden Shelf",
-              "price": 1599,
-              "category": "Storage",
-              "image": "/assets/wood.jpeg",
-              "quantity": 1
-            }
-          ],
-          "total": 1599,
           "createdAt": "2025-07-11T06:11:26.096Z",
-          "status": "processing"
+          "status": "delivered"
         },
         {
           "items": [
@@ -198,7 +192,7 @@
           "total": 897,
           "address": "Malappuram",
           "createdAt": "2025-07-19T17:56:57.556Z",
-          "status": "processing"
+          "status": "pending"
         },
         {
           "items": [
@@ -304,6 +298,49 @@
           "address": "fgjfh",
           "createdAt": "2025-07-19T21:21:01.782Z",
           "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "3",
+              "name": " Hanging Diya Lamp",
+              "price": 299,
+              "category": "Lighting",
+              "image": "/assets/diwali.jpeg",
+              "description": "Traditional meets modern with this handcrafted diya-style hanging lamp. Adds a warm and spiritual glow to any room or entryway.",
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 1
+            }
+          ],
+          "total": 1898,
+          "address": "kkk",
+          "createdAt": "2025-07-20T21:43:53.194Z",
+          "status": "pending"
+        },
+        {
+          "items": [
+            {
+              "id": "2",
+              "name": "Hexagonal Floating Shelves",
+              "price": 1599,
+              "category": "Storage",
+              "image": "/assets/str.jpg",
+              "description": "Set of geometric wall-mounted shelves made from durable wood. Perfect for showcasing décor, plants, or books with a modern twist.",
+              "quantity": 2
+            }
+          ],
+          "total": 3198,
+          "address": "hghb",
+          "createdAt": "2025-07-20T21:59:41.644Z",
+          "status": "pending"
         }
       ],
       "wishlist": [],
@@ -339,7 +376,7 @@
       "email": "subhana@gamil.com",
       "password": "subhana.123",
       "role": "user",
-      "isBlock": false,
+      "isBlock": true,
       "cart": [],
       "wishlist": [],
       "orders": [
@@ -416,7 +453,7 @@
       "email": "salah@gmail.com",
       "password": "sala1.23",
       "role": "user",
-      "isBlock": true,
+      "isBlock": false,
       "cart": [],
       "wishlist": [],
       "orders": [
@@ -527,18 +564,6 @@
         }
       ],
       "createdAt": "2025-07-11T07:28:54.471Z"
-    },
-    {
-      "id": "cfd1",
-      "name": "admin1",
-      "email": "admin1@gmail.com",
-      "password": "admin1.1",
-      "role": "admin",
-      "isBlock": false,
-      "cart": [],
-      "wishlist": [],
-      "orders": [],
-      "createdAt": "2025-07-16T05:14:11.972Z"
     },
     {
       "id": "23ba",

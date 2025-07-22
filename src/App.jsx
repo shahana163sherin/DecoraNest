@@ -43,20 +43,25 @@ const App = () => {
   const { wishlist, dispatch: wishDispatch } = useWishList();
   const { user, Logout, loading, setUser } = useAuth();
   const location = useLocation();
+  // console.log("Navbar User:", user);
 
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isAdmin = user && user.role === "admin";
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleLogout = () => {
-    Logout();
-    setUser(null);
-    cartDispatch({ type: "ClearCart" });
-    wishDispatch({ type: "ClearWish" });
-    setMenuOpen(false);
-    navigate("/login");
-  };
+ 
+  const handleLogout = async () => {
+  await Logout(); 
+
+  cartDispatch({ type: "ClearCart" });
+  wishDispatch({ type: "ClearWish" });
+  setMenuOpen(false);
+  navigate("/login");
+  
+  
+
+};
 
   const handleMenuClick = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
@@ -94,6 +99,7 @@ const App = () => {
               </li>
 
               {!user ? (
+                
                 <>
                   <li>
                     <Link
@@ -172,27 +178,12 @@ const App = () => {
       )}
 
       <Routes>
-        <Route
-          path="/"
-          element={
-      
-              <Home />
-          
-          }
-        />
+        <Route path="/" element={<Home />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/cart"
-          element={
-    
-              <Cart />
-          }
-        />
+        <Route path="/cart"  element={<Cart />  }/>
         <Route path="/orders" element={<Order />} />
-        <Route
-          path="/wishlist"
-          element={<Wishlist />}/>
+        <Route path="/wishlist" element={<Wishlist />}/>
         <Route path="/product/:id" element={<ProductDetails />} />
 
         {isAdmin ? (
@@ -201,14 +192,8 @@ const App = () => {
             <Route path="orderadmin" element={<OrdersAdmin />} />
             <Route path="product" element={<ProductsAdmin />} />
             <Route path="users" element={<Users />} />
-            <Route
-              path="product/edit-product/:id"
-              element={<AddOrEditProduct />}
-            />
-            <Route
-              path="product/add-product"
-              element={<AddOrEditProduct />}
-            />
+            <Route path="product/edit-product/:id"  element={<AddOrEditProduct />}/>
+            <Route path="product/add-product" element={<AddOrEditProduct />} />
           </Route>
         ) : (
           <Route path="/admin/*" element={<Navigate to="/" />} />

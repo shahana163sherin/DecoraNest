@@ -29,10 +29,16 @@ const ProductList = ({ products }) => {
         : p.category.toLowerCase() === selectedCategory.toLowerCase()
     )
     .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()));
+     const isAdmin = user?.role === "admin";
 
   const toggleLike = async (product) => {
-    if (!user) {
+   if (!user) {
       navigate("/login");
+      return;
+    }
+
+    if (isAdmin) {
+      alert("Admins cannot add products to wishlist.");
       return;
     }
 
@@ -125,6 +131,11 @@ const ProductList = ({ products }) => {
                 type="button"
                 className="mt-auto bg-purple-600 text-white px-4 py-1 rounded-full hover:bg-purple-700 transition"
                 onClick={() => {
+                  
+    if (isAdmin) {
+      alert("Admins cannot add products to cart.");
+      return;
+    }
                   dispatch({ type: "AddToCart", payload: product });
                   setMessage(`${product.name} added to cart!`);
                   setTimeout(() => setMessage(false), 2000);
