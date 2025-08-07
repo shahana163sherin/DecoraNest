@@ -1,14 +1,6 @@
 {
   "products": [
     {
-      "id": "1",
-      "name": "Middlten Grey & Gold ",
-      "price": 1999,
-      "category": "Wall Decor",
-      "image": "https://i.postimg.cc/ncZYcr8P/img1.jpg",
-      "description": "A modern timepiece featuring a matte grey base and elegant golden accents.Its minimal design blends seamlessly into contemporary or classic interiors."
-    },
-    {
       "id": "2",
       "name": "Hexagonal Floating Shelves",
       "price": 1599,
@@ -163,6 +155,50 @@
           "total": 598,
           "createdAt": "2025-07-11T07:29:44.334Z",
           "status": "processing"
+        },
+        {
+          "items": [
+            {
+              "id": "6",
+              "name": " Schefflera (Umbrella Plant) in Ceramic Planter",
+              "price": 3299,
+              "category": "IndoorPlant",
+              "image": "/assets/plant.jpg",
+              "description": "A lush green indoor plant known for its umbrella-like leaves. Potted in a premium ceramic planter to complement any indoor setting.",
+              "quantity": 2
+            },
+            {
+              "id": "8",
+              "name": " Modern Ceramic Globe Table Lamp",
+              "price": 5000,
+              "category": "Lighting",
+              "image": "/assets/lighting2.jpg",
+              "description": "A spherical ceramic lamp with a soft matte finish and warm glow. Ideal for desks, nightstands, or cozy corners.",
+              "quantity": 1
+            },
+            {
+              "id": "9",
+              "name": " Artificial olive tree",
+              "price": 3299,
+              "category": "IndoorPlant",
+              "image": "/assets/plant2.jpg",
+              "description": "Realistic and maintenance-free, this faux olive tree adds Mediterranean charm to your home without the upkeep.",
+              "quantity": 1
+            },
+            {
+              "id": "7",
+              "name": "White Candle",
+              "price": 299,
+              "category": "Small accent",
+              "image": "/assets/accent.jpg",
+              "description": "Minimalist and calming, this unscented white candle adds a peaceful touch to your space. Great for meditation, décor, or gifting.",
+              "quantity": 1
+            }
+          ],
+          "total": 15196,
+          "address": "valanchery",
+          "createdAt": "2025-08-07T09:25:54.115Z",
+          "status": "pending"
         }
       ],
       "wishlist": [],
