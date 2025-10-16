@@ -1,54 +1,80 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "../api/axiosInstance";
 import { toast } from "react-toastify";
+import axiosInstance from "../api/axiosInstance";
 
 const AddOrEditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const isEdit = Boolean(id);
 
   const [form, setForm] = useState({
     name: "",
-    image: "",
     category: "",
     price: "",
     description: "",
+    imageFile: null, // store the file
+    imageUrl: "",    // for preview
   });
-
-  const isEdit = Boolean(id);
 
   useEffect(() => {
     if (isEdit) {
-      axios.get(`/products/${id}`)
-        .then((res) => setForm(res.data))
+      axiosInstance
+        .get(`/admin/AdminProduct/${id}`)
+        .then((res) => {
+          const data = res.data.data;
+          setForm({
+            name: data.productName,
+            category: data.categoryId,
+            price: data.price,
+            description: data.description,
+            imageFile: null,
+            imageUrl: data.imgUrl, // show existing image
+          });
+        })
         .catch((err) => {
           console.error("Error fetching product", err);
           toast.error("Failed to load product");
         });
     }
-  }, [id]);
+  }, [id, isEdit]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setForm({ ...form, imageFile: file, imageUrl: URL.createObjectURL(file) });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("ProductName", form.name);
+    formData.append("CategoryId", form.category);
+    formData.append("Price", form.price);
+    formData.append("Description", form.description);
+    if (form.imageFile) formData.append("ImageFile", form.imageFile);
+
     try {
       if (isEdit) {
-        await axios.put(`/products/${id}`, form);
+        await axiosInstance.put(`/admin/AdminProduct/${id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         toast.success("Product updated successfully!");
       } else {
-        await axios.post("/products", {
-          ...form,
-          createdAt: new Date().toISOString(),
+        await axiosInstance.post("/admin/AdminProduct/Add", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Product added successfully!");
       }
       navigate("/admin/product");
-    } catch (error) {
-      console.error("Error saving product", error);
+    } catch (err) {
+      console.error("Error saving product", err);
       toast.error("Failed to save product");
     }
   };
@@ -60,7 +86,6 @@ const AddOrEditProduct = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Product Name
@@ -76,50 +101,21 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-  
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            Image URL
-          </label>
-          <input
-            type="url"
-            name="image"
-            value={form.image}
-            onChange={handleChange}
-            required
-            placeholder="Paste image URL here"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
-
-   
-        {form.image && (
-          <div className="flex justify-center mt-4">
-            <img
-              src={form.image}
-              alt="Preview"
-              className="w-40 h-40 object-cover rounded-lg shadow"
-            />
-          </div>
-        )}
-
-        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Category
           </label>
           <input
-            type="text"
+            type="number"
             name="category"
             value={form.category}
             onChange={handleChange}
             required
-            placeholder="e.g. Wall Decor, Vase"
+            placeholder="Enter category ID"
             className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
-        
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Price (₹)
@@ -135,7 +131,6 @@ const AddOrEditProduct = () => {
           />
         </div>
 
-      
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">
             Description
@@ -151,7 +146,28 @@ const AddOrEditProduct = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
+        <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full"
+          />
+        </div>
+
+        {form.imageUrl && (
+          <div className="flex justify-center mt-4">
+            <img
+              src={form.imageUrl}
+              alt="Preview"
+              className="w-40 h-40 object-cover rounded-lg shadow"
+            />
+          </div>
+        )}
+
         <button
           type="submit"
           className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 shadow-md"
@@ -164,5 +180,3 @@ const AddOrEditProduct = () => {
 };
 
 export default AddOrEditProduct;
-
-

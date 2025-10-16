@@ -1,131 +1,270 @@
-import { useEffect, useMemo, useState } from "react";
-import axios from "../api/axiosInstance";
+// import { useEffect, useState } from "react";
+// import axiosInstance from "../api/axiosInstance";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+
+// const OrdersAdmin = () => {
+//   const [ordersData, setOrdersData] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [totalPages, setTotalPages] = useState(1);
+//   const [search, setSearch] = useState("");
+//   const [statusFilter, setStatusFilter] = useState("All");
+//   const [sortOrder, setSortOrder] = useState("desc"); // desc = newest first
+//   const itemsPerPage = 5;
+
+//   const fetchOrders = async (page = 1) => {
+//     try {
+//       const params = { pagenumber: page, limit: itemsPerPage };
+//       const res = await axiosInstance.get("/admin/order/AllOrder", { params });
+//       setOrdersData(res.data.items);
+//       setTotalPages(res.data.totalPages);
+//       setCurrentPage(res.data.currentPage);
+//     } catch (err) {
+//       console.error("Error fetching orders", err);
+//       toast.error("Failed to fetch orders");
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchOrders(currentPage);
+//   }, [currentPage]);
+
+//   const updateStatus = async (orderId, newStatus) => {
+//     try {
+//       await axiosInstance.put("/admin/order/updateStatus", { id: orderId, status: newStatus });
+//       toast.success("Order status updated!");
+//       fetchOrders(currentPage);
+//     } catch (err) {
+//       console.error(err);
+//       toast.error("Failed to update status");
+//     }
+//   };
+
+//   const deleteOrder = async (orderId) => {
+//     try {
+//       await axiosInstance.delete(`/admin/order/deleteOrder?orderid=${orderId}`);
+//       toast.success("Order deleted!");
+//       fetchOrders(currentPage);
+//     } catch (err) {
+//       console.error(err);
+//       toast.error("Failed to delete order");
+//     }
+//   };
+
+//   const filteredOrders = ordersData
+//     .filter((o) =>
+//       (search === "" || o.username.toLowerCase().includes(search.toLowerCase())) &&
+//       (statusFilter === "All" || o.status.toLowerCase() === statusFilter.toLowerCase())
+//     )
+//     .sort((a, b) =>
+//       sortOrder === "desc"
+//         ? new Date(b.orderDate) - new Date(a.orderDate)
+//         : new Date(a.orderDate) - new Date(b.orderDate)
+//     );
+
+//   const getStatusBadge = (status) => {
+//     const base = "px-3 py-1 text-xs font-bold uppercase rounded-full";
+//     const colors = {
+//       delivered: "bg-green-200 text-green-800",
+//       pending: "bg-yellow-200 text-yellow-800",
+//       processing: "bg-blue-200 text-blue-800",
+//       cancelled: "bg-red-200 text-red-800",
+//     };
+//     return <span className={`${base} ${colors[status] || "bg-gray-200"}`}>{status}</span>;
+//   };
+
+//  const getPaymentBadge = (paymentStatus) => {
+//   const base = "px-3 py-1 text-xs font-bold uppercase rounded-full";
+//   const colors = {
+//     success: "bg-green-200 text-green-800",
+//     failed: "bg-red-200 text-red-800",
+//     pending: "bg-yellow-200 text-yellow-800",
+//   };
+//   return (
+//     <span className={`${base} ${colors[paymentStatus?.toLowerCase()] || "bg-gray-200"}`}>
+//       {paymentStatus || "Unknown"}
+//     </span>
+//   );
+// };
+
+
+//   return (
+//     <div className="p-6 space-y-6">
+//       <h1 className="text-3xl font-bold text-gray-800 mb-4">All Orders</h1>
+
+//       {/* Filters */}
+//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+//         <input
+//           type="text"
+//           placeholder="Search by username"
+//           value={search}
+//           onChange={(e) => setSearch(e.target.value)}
+//           className="border p-2 rounded shadow-sm"
+//         />
+//         <select
+//           value={statusFilter}
+//           onChange={(e) => setStatusFilter(e.target.value)}
+//           className="border p-2 rounded shadow-sm"
+//         >
+//           {["All", "Pending", "Processing", "Delivered", "Cancelled"].map((s) => (
+//             <option key={s} value={s}>{s}</option>
+//           ))}
+//         </select>
+//         <select
+//           value={sortOrder}
+//           onChange={(e) => setSortOrder(e.target.value)}
+//           className="border p-2 rounded shadow-sm"
+//         >
+//           <option value="desc">Newest First</option>
+//           <option value="asc">Oldest First</option>
+//         </select>
+//       </div>
+
+//       {/* Orders List */}
+//       {filteredOrders.map((order) => (
+//         <div key={order.orderId} className="border p-4 rounded-xl shadow-md mb-6">
+//           <div className="flex justify-between items-start mb-4">
+//             <div>
+//               <h2 className="text-xl font-semibold">Order #{order.ordeId}</h2>
+//               <p><strong>Customer:</strong> {order.username} ({order.email})</p>
+//               <p><strong>Date:</strong> {new Date(order.orderDate).toLocaleString()}</p>
+//             </div>
+//             <div className="flex items-center gap-2">
+//   {getStatusBadge(order.status)}
+//   {getPaymentBadge(order.paymentStatus)} {/* <-- add this */}
+  
+//             {order.status !== "cancelled" && (
+//               <select
+//                 value={order.status}
+//                 onChange={(e) => updateStatus(order.ordeId, e.target.value)}
+//                 className="px-3 py-1 border rounded shadow-sm bg-white"
+//               >
+//                 <option value="pending">Pending</option>
+//                 <option value="processing">Processing</option>
+//                 <option value="delivered">Delivered</option>
+//               </select>
+//             )}
+//               <button
+//                 onClick={() => deleteOrder(order.ordeId)}
+//                 className="text-red-600 font-semibold hover:underline"
+//               >
+//                 Delete
+//               </button>
+//             </div>
+//           </div>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+//             {order.items.map((item, i) => (
+//               <div key={i} className="bg-white p-4 rounded shadow-sm flex flex-col items-center">
+//                 <img src={item.imgUrl} alt={item.productName} className="w-24 h-24 object-cover mb-2 rounded" />
+//                 <p className="font-semibold">{item.productName}</p>
+//                 <p className="text-sm text-gray-500">{item.category}</p>
+//                 <p>Qty: {item.quantity}</p>
+//                 <p className="font-bold text-green-700">₹{item.price}</p>
+//               </div>
+//             ))}
+//           </div>
+
+//           <div className="text-right mt-4 font-bold">Total: ₹{order.totalAmount}</div>
+//         </div>
+//       ))}
+
+//       {/* Pagination */}
+//       {totalPages > 1 && (
+//         <div className="flex justify-center mt-6 space-x-2">
+//           <button
+//             disabled={currentPage === 1}
+//             onClick={() => setCurrentPage((p) => p - 1)}
+//             className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+//           >
+//             Previous
+//           </button>
+//           <span className="px-4 py-2 font-semibold">
+//             Page {currentPage} of {totalPages}
+//           </span>
+//           <button
+//             disabled={currentPage === totalPages}
+//             onClick={() => setCurrentPage((p) => p + 1)}
+//             className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+
+// export default OrdersAdmin;
+
+import { useEffect, useState } from "react";
+import axiosInstance from "../api/axiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const OrdersAdmin = () => {
   const [ordersData, setOrdersData] = useState([]);
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortOrder, setSortOrder] = useState("newest");
-  const [sortStatus, setSortStatus] = useState("All");
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
   const itemsPerPage = 5;
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [orderToDelete, setOrderToDelete] = useState(null);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get("/users");
-        setOrdersData(res.data);
-      } catch (err) {
-        console.error("Error in fetching orders", err);
-      }
-    };
-    fetchOrders();
-  }, []);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, selectedCategory, sortStatus]);
-
-  const categories = useMemo(() => {
-    const items = ordersData.flatMap((user) =>
-      user.orders?.flatMap((order) => order.items) || []
-    );
-    const unique = new Set(items.map((item) => item.category));
-    return ["All", ...unique];
-  }, [ordersData]);
-
-  const filteredOrders = useMemo(() => {
-    const allOrders = ordersData
-      .filter((user) => {
-        const usernameMatch = user.name?.toLowerCase().includes(search.toLowerCase());
-        
-        return search === "" || usernameMatch;
-      })
-      .flatMap((user) =>
-        (user.orders || []).map((order, index) => ({
-          ...order,
-          user,
-          index,
-        }))
-      )
-      .filter((order) =>
-        selectedCategory === "All"
-          ? true
-          : order.items?.some((item) => item.category === selectedCategory)
-      )
-      .filter((order) =>
-        sortStatus === "All" ? true : order.status === sortStatus.toLowerCase()
-      );
-
-    return allOrders.sort((a, b) =>
-      sortOrder === "newest"
-        ? new Date(b.createdAt) - new Date(a.createdAt)
-        : new Date(a.createdAt) - new Date(b.createdAt)
-    );
-  }, [ordersData, selectedCategory, search, sortOrder, sortStatus]);
-
-  const paginatedOrders = filteredOrders.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const updateStatus = async (userId, orderIndex, newStatus) => {
+  const fetchOrders = async (page = 1) => {
     try {
-      const user = ordersData.find((u) => u.id === userId);
-      const updatedOrders = [...user.orders];
-      updatedOrders[orderIndex].status = newStatus;
-
-      await axios.patch(`/users/${userId}`, { orders: updatedOrders });
-
-      setOrdersData((prev) =>
-        prev.map((u) =>
-          u.id === userId ? { ...u, orders: updatedOrders } : u
-        )
-      );
-      toast.success("Order status updated!");
+      const params = { pagenumber: page, limit: itemsPerPage };
+      const res = await axiosInstance.get("/admin/order/AllOrder", { params });
+      setOrdersData(res.data.items);
+      setTotalPages(res.data.totalPages);
+      setCurrentPage(res.data.currentPage);
     } catch (err) {
-      console.error("Error updating status", err);
+      console.error("Error fetching orders", err);
+      toast.error("Failed to fetch orders");
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders(currentPage);
+  }, [currentPage]);
+
+  const updateStatus = async (orderId, newStatus) => {
+    try {
+      await axiosInstance.put("/admin/order/updateStatus", { id: orderId, status: newStatus });
+      toast.success("Order status updated!");
+      fetchOrders(currentPage);
+    } catch (err) {
+      console.error(err);
       toast.error("Failed to update status");
     }
   };
 
-  const handleDeleteClick = (userId, orderIndex) => {
-    setOrderToDelete({ userId, orderIndex });
-    setShowDeleteModal(true);
-  };
-
-  const confirmDeleteOrder = async () => {
-    if (!orderToDelete) return;
-
-    const { userId, orderIndex } = orderToDelete;
-
+  const deleteOrder = async (orderId) => {
     try {
-      const user = ordersData.find((u) => u.id === userId);
-      const updatedOrders = [...user.orders];
-      updatedOrders.splice(orderIndex, 1);
-
-      await axios.patch(`/users/${userId}`, { orders: updatedOrders });
-
-      setOrdersData((prev) =>
-        prev.map((u) =>
-          u.id === userId ? { ...u, orders: updatedOrders } : u
-        )
-      );
+      await axiosInstance.delete(`/admin/order/deleteOrder?orderid=${orderId}`);
       toast.success("Order deleted!");
+      fetchOrders(currentPage);
     } catch (err) {
-      console.error("Error deleting order", err);
+      console.error(err);
       toast.error("Failed to delete order");
-    } finally {
-      setShowDeleteModal(false);
-      setOrderToDelete(null);
     }
   };
+
+  const filteredOrders = ordersData
+    .filter(
+      (o) =>
+        (search === "" || o.username.toLowerCase().includes(search.toLowerCase())) &&
+        (statusFilter === "All" || o.status.toLowerCase() === statusFilter.toLowerCase())
+    )
+    .sort((a, b) =>
+      sortOrder === "desc"
+        ? new Date(b.orderDate) - new Date(a.orderDate)
+        : new Date(a.orderDate) - new Date(b.orderDate)
+    );
 
   const getStatusBadge = (status) => {
     const base = "px-3 py-1 text-xs font-bold uppercase rounded-full";
@@ -138,122 +277,166 @@ const OrdersAdmin = () => {
     return <span className={`${base} ${colors[status] || "bg-gray-200"}`}>{status}</span>;
   };
 
+  const getPaymentBadge = (paymentStatus) => {
+    const base = "px-3 py-1 text-xs font-bold uppercase rounded-full";
+    const colors = {
+      success: "bg-green-200 text-green-800",
+      failed: "bg-red-200 text-red-800",
+      pending: "bg-yellow-200 text-yellow-800",
+    };
+    return (
+      <span className={`${base} ${colors[paymentStatus?.toLowerCase()] || "bg-gray-200"}`}>
+        {paymentStatus || "Unknown"}
+      </span>
+    );
+  };
+
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">All Orders</h1>
 
-      
-      <div className="p-4 bg-white shadow-sm rounded-lg mb-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Filter Orders</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600 mb-1">Search</label>
-            <input
-              type="text"
-              placeholder="Username"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-       
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600 mb-1">Category</label>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              {categories.map((cat, i) => (
-                <option key={i} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
-
-        
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600 mb-1">Status</label>
-            <select
-              value={sortStatus}
-              onChange={(e) => setSortStatus(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              {["All", "Pending", "Processing", "Delivered", "Cancelled"].map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-
-         
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600 mb-1">Sort By</label>
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-            </select>
-          </div>
-        </div>
+      {/* Filters */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Search by username"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border p-2 rounded shadow-sm"
+        />
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border p-2 rounded shadow-sm"
+        >
+          {["All", "Pending", "Processing", "Delivered", "Cancelled"].map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="border p-2 rounded shadow-sm"
+        >
+          <option value="desc">Newest First</option>
+          <option value="asc">Oldest First</option>
+        </select>
       </div>
 
-      
-      {paginatedOrders.map((order, index) => {
-        const user = order.user;
-        return (
-          <div key={`${user.id}-${order.index}`} className="border p-4 rounded-xl shadow-md mb-6">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h2 className="text-xl font-semibold">Order #{index + 1}</h2>
-                <p><strong>Customer:</strong> {user.name} ({user.email})</p>
-                <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                {getStatusBadge(order.status)}
-                {order.status !== "cancelled" && (
-                  <select
-                    value={order.status}
-                    onChange={(e) => updateStatus(user.id, order.index, e.target.value)}
-                    className="px-3 py-1 border rounded shadow-sm bg-white"
-                  >
-                    <option value="pending">Pending</option>
-                    <option value="processing">Processing</option>
-                    <option value="delivered">Delivered</option>
-                  </select>
-                )}
-                <button
-                  onClick={() => handleDeleteClick(user.id, order.index)}
-                  className="text-red-600 font-semibold hover:underline"
+      {/* Orders List */}
+      {filteredOrders.map((order) => (
+        <div key={order.orderId} className="border p-4 rounded-xl shadow-md mb-6">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h2 className="text-xl font-semibold">Order #{order.ordeId}</h2>
+              <p>
+                <strong>Customer:</strong> {order.username} ({order.email})
+              </p>
+              <p>
+                <strong>Date:</strong> {new Date(order.orderDate).toLocaleString()}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              {getStatusBadge(order.status)}
+              {getPaymentBadge(order.paymentStatus)}
+
+              {order.status !== "cancelled" && (
+                <select
+                  value={order.status}
+                  onChange={(e) => updateStatus(order.ordeId, e.target.value)}
+                  className="px-3 py-1 border rounded shadow-sm bg-white"
                 >
-                  Delete
-                </button>
-              </div>
-            </div>
+                  <option value="pending">Pending</option>
+                  <option value="processing">Processing</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+              )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {order.items.map((item, i) => (
-                <div key={i} className="bg-white p-4 rounded shadow-sm flex flex-col items-center">
-                  <img src={item.image} alt={item.name} className="w-24 h-24 object-cover mb-2 rounded" />
-                  <p className="font-semibold">{item.name}</p>
-                  <p className="text-sm text-gray-500">{item.category}</p>
-                  <p>Qty: {item.quantity}</p>
-                  <p className="font-bold text-green-700">₹{item.price}</p>
-                </div>
-              ))}
+              <button
+                onClick={() => {
+                  setSelectedOrder(order);
+                  setShowDeleteModal(true);
+                }}
+                className="text-red-600 font-semibold hover:underline"
+              >
+                Delete
+              </button>
             </div>
-
-            <div className="text-right mt-4 font-bold">Total: ₹{order.total}</div>
           </div>
-        );
-      })}
 
-   
-      {filteredOrders.length > itemsPerPage && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {order.items.map((item, i) => (
+              <div key={i} className="bg-white p-4 rounded shadow-sm flex flex-col items-center">
+                <img
+                  src={item.imgUrl}
+                  alt={item.productName}
+                  className="w-24 h-24 object-cover mb-2 rounded"
+                />
+                <p className="font-semibold">{item.productName}</p>
+                <p className="text-sm text-gray-500">{item.category}</p>
+                <p>Qty: {item.quantity}</p>
+                <p className="font-bold text-green-700">₹{item.price}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-right mt-4 font-bold">Total: ₹{order.totalAmount}</div>
+        </div>
+      ))}
+
+      {/* === Danger Delete Modal with Exclamation Sign === */}
+      {showDeleteModal && selectedOrder && (
+        <div className="fixed inset-0 bg-blur bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-red-600 text-white p-6 rounded-lg shadow-lg w-80 flex flex-col items-center">
+            
+            {/* Exclamation inside triangle */}
+            <svg
+              className="w-16 h-16 mb-4 animate-pulse"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64a1 1 0 00.86-1.5L13.71 3.86a1 1 0 00-1.72 0zM12 9v4m0 4h.01"
+              />
+            </svg>
+
+            {/* Small Message */}
+            <p className="text-center mb-6 text-sm">
+              Are you sure you want to delete order <strong>#{selectedOrder.ordeId}</strong>?
+            </p>
+
+            {/* Buttons */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 bg-white text-red-600 font-semibold rounded hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  await deleteOrder(selectedOrder.ordeId);
+                  setShowDeleteModal(false);
+                  setSelectedOrder(null);
+                }}
+                className="px-4 py-2 bg-white text-red-600 font-semibold rounded hover:bg-gray-100"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
         <div className="flex justify-center mt-6 space-x-2">
           <button
             disabled={currentPage === 1}
@@ -263,43 +446,15 @@ const OrdersAdmin = () => {
             Previous
           </button>
           <span className="px-4 py-2 font-semibold">
-            Page {currentPage} of {Math.ceil(filteredOrders.length / itemsPerPage)}
+            Page {currentPage} of {totalPages}
           </span>
           <button
-            disabled={currentPage === Math.ceil(filteredOrders.length / itemsPerPage)}
+            disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
             className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
           >
             Next
           </button>
-        </div>
-      )}
-
-   
-      {showDeleteModal && (
-        <div className="fixed inset-0 backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center z-50">
-        {/* <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50"> */}
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
-            <h3 className="text-lg font-semibold mb-4">Confirm Deletion</h3>
-            <p className="mb-6 text-gray-700">Are you sure you want to delete this order?</p>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => {
-                  setShowDeleteModal(false);
-                  setOrderToDelete(null);
-                }}
-                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmDeleteOrder}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>

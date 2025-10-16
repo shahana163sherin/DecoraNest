@@ -5,13 +5,13 @@ import { useAuth } from "../context/AuthContext";
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const {Logout}=useAuth();
+  const {logout}=useAuth();
   const navigate=useNavigate();
 
   
 
   async function handleLogout() {
-  await Logout();           
+  await logout();           
   navigate("/login");       
 }
 

@@ -1,51 +1,54 @@
 import { useEffect, useState, useMemo } from "react";
-import axios from "../api/axiosInstance";
 import { useNavigate } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
+import axiosInstance from "../api/axiosInstance";
 
 const ProductsAdmin = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
+  // Fetch products from backend with pagination
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("/products");
-        setProducts(res.data);
+        const res = await axiosInstance.get(
+          `/admin/AdminProduct/AllProducts?pagenumber=${currentPage}&limit=${itemsPerPage}`
+        );
+
+        setProducts(res.data.items || []); // set only items array
+        setTotalPages(res.data.totalPages || 1); // track total pages
       } catch (err) {
-        console.error("Error in fetching product", err);
+        console.error("Error fetching products:", err);
       }
     };
-    fetchProducts();
-  }, []);
 
+    fetchProducts();
+  }, [currentPage, itemsPerPage]);
+
+  // Get unique categories for filter dropdown
   const categories = useMemo(() => {
-    const unique = new Set(products.map((p) => p.category));
+    const unique = new Set(products.map((p) => p.categoryName));
     return ["All", ...unique];
   }, [products]);
 
+  // Filter products by search and category
   const filteredProducts = useMemo(() => {
     return products
       .filter((p) =>
-        selectedCategory === "All" ? true : p.category === selectedCategory
+        selectedCategory === "All" ? true : p.categoryName === selectedCategory
       )
       .filter((p) =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase())
+        p.productName.toLowerCase().includes(searchQuery.toLowerCase())
       );
   }, [products, selectedCategory, searchQuery]);
-
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const paginatedProducts = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return filteredProducts.slice(start, start + itemsPerPage);
-  }, [filteredProducts, currentPage]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -100,20 +103,20 @@ const ProductsAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedProducts.map((p) => (
+            {filteredProducts.map((p) => (
               <tr
-                key={p.id}
+                key={p.productId}
                 className="border-t border-gray-200 hover:bg-gray-50 transition"
               >
                 <td className="py-3 px-4">
                   <img
-                    src={p.image}
-                    alt={p.name}
+                    src={p.imageUrl}
+                    alt={p.productName}
                     className="w-20 h-20 object-cover rounded"
                   />
                 </td>
-                <td className="py-3 px-4 capitalize">{p.name}</td>
-                <td className="py-3 px-4 capitalize">{p.category}</td>
+                <td className="py-3 px-4 capitalize">{p.productName}</td>
+                <td className="py-3 px-4 capitalize">{p.categoryName}</td>
                 <td className="py-3 px-4 font-medium text-gray-700">
                   ₹{p.price}
                 </td>
@@ -121,7 +124,7 @@ const ProductsAdmin = () => {
                   <button
                     className="bg-green-600 text-white p-2 rounded hover:bg-green-700 transition"
                     onClick={() =>
-                      navigate(`/admin/product/edit-product/${p.id}`)
+                      navigate(`/admin/product/edit-product/${p.productId}`)
                     }
                     title="Edit"
                   >
@@ -144,6 +147,7 @@ const ProductsAdmin = () => {
         </table>
       </div>
 
+      {/* Pagination */}
       <div className="flex justify-center mt-4 space-x-2 flex-wrap">
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
           <button
@@ -160,15 +164,14 @@ const ProductsAdmin = () => {
         ))}
       </div>
 
- 
+      {/* Delete Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center z-50">
-         {/* <div className="fixed inset-0 bg-black bg-opacity-50  flex items-center justify-center z-50"> */}
           <div className="bg-white rounded-lg shadow-lg p-6 w-80 animate-fade-in">
             <h3 className="text-lg font-semibold mb-4">Confirm Delete</h3>
             <p className="text-sm mb-4 text-gray-700">
               Are you sure you want to delete{" "}
-              <span className="font-bold">{selectedProduct?.name}</span>?
+              <span className="font-bold">{selectedProduct?.productName}</span>?
             </p>
             <div className="flex justify-end space-x-3">
               <button
@@ -180,9 +183,13 @@ const ProductsAdmin = () => {
               <button
                 onClick={async () => {
                   try {
-                    await axios.delete(`/products/${selectedProduct.id}`);
+                    await axiosInstance.delete(
+                      `/admin/AdminProduct/${selectedProduct.productId}`
+                    );
                     setProducts((prev) =>
-                      prev.filter((p) => p.id !== selectedProduct.id)
+                      prev.filter(
+                        (p) => p.productId !== selectedProduct.productId
+                      )
                     );
                     setShowDeleteModal(false);
                   } catch (err) {
@@ -203,4 +210,3 @@ const ProductsAdmin = () => {
 };
 
 export default ProductsAdmin;
-

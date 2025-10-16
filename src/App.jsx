@@ -21,17 +21,21 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Orders";
 import Wishlist from "./pages/wishlist";
 import ProductDetails from "./components/ProductDetails";
-
+import PrivateRoute from "./components/PrivateRoute";
 import Users from "./admin/Users";
 import OrdersAdmin from "./admin/Orders";
 import ProductsAdmin from "./admin/Products";
 import Dashboard from "./admin/Dashboard";
 import AdminLayout from "./admin/AdminLayout";
 import AddOrEditProduct from "./admin/AddOrEditProduct";
+import PaymentPage from "./pages/Payment";
 
 import { useCart } from "./context/CartContext";
 import { useWishList } from "./context/WishlistContext";
 import { useAuth } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 
@@ -41,7 +45,7 @@ const App = () => {
 
   const { cart, dispatch: cartDispatch } = useCart();
   const { wishlist, dispatch: wishDispatch } = useWishList();
-  const { user, Logout, loading, setUser } = useAuth();
+  const { user, logout, loading, setUser } = useAuth();
   const location = useLocation();
   // console.log("Navbar User:", user);
 
@@ -52,7 +56,7 @@ const App = () => {
 
  
   const handleLogout = async () => {
-  await Logout(); 
+  await logout(); 
 
   cartDispatch({ type: "ClearCart" });
   wishDispatch({ type: "ClearWish" });
@@ -70,6 +74,7 @@ const App = () => {
 
   return (
     <div>
+       <ToastContainer position="top-right" autoClose={3000} />
       {!isAdminRoute && (
         <nav className="bg-[#E0BBE5] text-purple-900 p-4 shadow-md">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -131,6 +136,15 @@ const App = () => {
                       Orders
                     </Link>
                   </li>
+                   <li>
+                    <Link
+                      to="/payment"
+                      onClick={closeMenu}
+                      className="hover:text-white"
+                    >
+                      Payment
+                    </Link>
+                  </li>
                   <li>
                     <button
                       onClick={handleLogout}
@@ -181,7 +195,7 @@ const App = () => {
         <Route path="/" element={<Home />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/cart"  element={<Cart />  }/>
+        {/* <Route path="/cart"  element={<Cart />  }/>
         <Route path="/orders" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />}/>
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -197,7 +211,22 @@ const App = () => {
           </Route>
         ) : (
           <Route path="/admin/*" element={<Navigate to="/" />} />
-        )}
+        )} */}
+          <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path="/orders" element={<PrivateRoute><Order /></PrivateRoute>} />
+        <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+        <Route path="/product/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
+        <Route path="/payment"element={<PrivateRoute><PaymentPage /></PrivateRoute>}/>
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<PrivateRoute adminOnly={true}><AdminLayout /></PrivateRoute>}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="orderadmin" element={<OrdersAdmin />} />
+          <Route path="product" element={<ProductsAdmin />} />
+          <Route path="users" element={<Users />} />
+          <Route path="product/edit-product/:id" element={<AddOrEditProduct />} />
+          <Route path="product/add-product" element={<AddOrEditProduct />} />
+        </Route>
       </Routes>
     </div>
   );

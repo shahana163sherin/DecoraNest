@@ -1,43 +1,40 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
+  const {register,login}=useAuth();
 
     const [user,setUser]=useState({
-        name:"",
-        email:"",
-        password:"",
+        UserName:"",
+        Email:"",
+        Password:"",
         confirm_password:""
     })
     
   const navigate=useNavigate();
   const [showPassword,setShowPassword]= useState(false)
   const [showConfirmPassword,setShowConfirmPassword]= useState(false)
+  const [loading, setLoading] = useState(false);
+  // const[error,setError]=useState("");
 
 
 
 const submit = async (e) =>{
-     e.preventDefault();
-       const res=await axios.get ("http://localhost:3000/users",{
-            params:{email:user.email}
-        });
-        if(res.data.length > 0){
-             alert ("Email already exists")
-             return;
-        }    
-    
+     e.preventDefault(); 
+     setLoading(true);
 
-   
-    const number=/\d/.test(user.password)
-    const symbol = /[!./,?"@#$%^&*:;'|<>{}()`~]/.test(user.password)
+     
+     const number=/\d/.test(user.Password)
+    const symbol = /[!./,?"@#$%^&*:;'|<>{}()`~]/.test(user.Password)
     
-    if(user.password.length < 8 || !number || !symbol){
+    if(user.Password.length < 8 || !number || !symbol){
         alert("Password must contain 8 characters and include atleast one number and one symbol")
         return ;
     }
 
-    if (user.password !== user.confirm_password){
+    if (user.Password !== user.confirm_password){
         alert("Password must be match")
         return;
     }
@@ -46,34 +43,31 @@ const submit = async (e) =>{
         return  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
-    if (!validateEmail(user.email)){
+    if (!validateEmail(user.Email)){
         alert("Enter valid Email")
         return;
     }
    
-     await axios.post("http://localhost:3000/users",{
-            
-                name:user.name,
-                email:user.email,
-                password:user.password,
-                role:"user",
-                isBlock:false,
-                cart:[],
-                wishlist:[],
-                orders:[],
-                createdAt: new Date().toISOString()
+  
+    const res = await register(user.UserName, user.Email, user.Password);
 
-            
-        })
+  if (!res?.error) {
+    const loginRes = await login(user.Email, user.Password);
 
-    
-   alert("Registered successfully!");
- 
-     navigate("/login")
+    if (loginRes?.success) {
+      navigate(loginRes.role === "Admin" ? "/admin/dashboard" : "/");
+    } else {
+      alert(loginRes?.error || "Login after registration failed");
+    }
+  } else {
+    alert(res.error);
+  }
 
-
+  setLoading(false);
 
 }
+
+
 
     return(
   <div
@@ -91,9 +85,9 @@ const submit = async (e) =>{
       <input
         type="text"
         placeholder="Enter your name"
-        value={user.name}
+        value={user.UserName}
         required
-        onChange={(e) => setUser({ ...user, name: e.target.value })}
+        onChange={(e) => setUser({ ...user, UserName: e.target.value })}
         className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:outline-none"
       />
     </div>
@@ -103,9 +97,9 @@ const submit = async (e) =>{
       <input
         type="email"
         placeholder="Enter your email"
-        value={user.email}
+        value={user.Email}
         required
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
+        onChange={(e) => setUser({ ...user, Email: e.target.value })}
         className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:outline-none"
       />
     </div>
@@ -115,9 +109,9 @@ const submit = async (e) =>{
       <input
         type={showPassword ? "text" : "password"}
         placeholder="Password"
-        value={user.password}
+        value={user.Password}
         required
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
+        onChange={(e) => setUser({ ...user, Password: e.target.value })}
         className="w-full border rounded-md px-4 py-2 shadow-sm focus:ring focus:outline-none"
       />
       <div className="mt-1 text-sm text-gray-600">
@@ -153,11 +147,13 @@ const submit = async (e) =>{
     </div>
 
     <button
-      type="submit"
-      className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition shadow"
-    >
-      Sign Up
-    </button>
+  type="submit"
+  disabled={loading}
+  className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition shadow disabled:opacity-50"
+>
+  {loading ? "Registering..." : "Sign Up"}
+  {/* Sign Up */}
+</button>
   </form>
 </div>
 

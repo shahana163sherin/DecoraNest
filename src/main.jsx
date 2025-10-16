@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { CartProvider } from './context/CartContext.jsx'
-import AuthProvider from './context/AuthContext.jsx'
+import {AuthProvider }from './context/AuthContext.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import WishListProvider from './context/WishlistContext.jsx'
 
@@ -12,15 +12,13 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       
 
-    <AuthProvider>
-      <CartProvider>
+      <AuthProvider>
         <WishListProvider>
-
-        <App />
-   </WishListProvider>
-    </CartProvider>
-
-    </AuthProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </WishListProvider>
+      </AuthProvider>
 
     </BrowserRouter>
     

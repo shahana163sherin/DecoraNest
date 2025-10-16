@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { Login } = useAuth();
+  const { login } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -13,23 +13,36 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate=useNavigate();
 
-  const submit = async (e) => {
-    e.preventDefault();
-    const result = await Login(form.email, form.password);
+//   const submit = async (e) => {
+//     e.preventDefault();
+//     const result = await login(form.email, form.password);
+//     console.log(result);
   
-    if (result?.success) {
-  alert("Welcome to DecoraNest");
+//     if (result?.success) {
+//   alert("Welcome to DecoraNest");
+//   navigate(result.role === "Admin" ? "/admin/dashboard" : "/");
+// } else {
+//   alert(result.error);
+// }
 
-  if (result.role === "admin") {
-    navigate("/admin/dashboard");
+
+//   };
+
+
+const submit = async (e) => {
+  e.preventDefault();
+
+  const result = await login(form.email, form.password);
+  console.log(result);
+
+  if (result.success) {
+    alert("Welcome to DecoraNest!");
+    navigate(result.role === "Admin" ? "/admin/dashboard" : "/");
   } else {
-    navigate("/");
+    alert(result.error); 
   }
-} else {
-  alert(result.error);
-}
+};
 
-  };
 
   return (
     
