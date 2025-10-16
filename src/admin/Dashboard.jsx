@@ -40,7 +40,7 @@ const Dashboard = () => {
       <h2 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Total Users */}
+      
         <div className="bg-white p-4 rounded-2xl shadow-md text-center">
           <p className="text-xl font-semibold text-gray-700">Total Users</p>
           <p className="text-3xl font-bold text-blue-600">{dashboard.totalUsers}</p>
@@ -49,7 +49,6 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Total Orders */}
         <div className="bg-white p-4 rounded-2xl shadow-md text-center">
           <p className="text-xl font-semibold text-gray-700">Total Orders</p>
           <p className="text-3xl font-bold text-green-600">{dashboard.totalOrders}</p>
@@ -63,20 +62,19 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Total Products */}
+      
         <div className="bg-white p-4 rounded-2xl shadow-md text-center">
           <p className="text-xl font-semibold text-gray-700">Total Products</p>
           <p className="text-3xl font-bold text-purple-600">{dashboard.totalProducts}</p>
         </div>
 
-        {/* Total Revenue */}
+      
         <div className="bg-white p-4 rounded-2xl shadow-md text-center">
           <p className="text-xl font-semibold text-gray-700">Total Revenue</p>
           <p className="text-3xl font-bold text-yellow-600">₹{dashboard.totalRevenue}</p>
         </div>
       </div>
 
-      {/* Monthly Revenue Chart */}
       <div className="w-full h-[300px] bg-white p-4 rounded-2xl shadow-md mt-6">
         <h3 className="text-xl font-semibold mb-4 text-center">Monthly Revenue</h3>
         <ResponsiveContainer width="100%" height="100%">
@@ -96,7 +94,7 @@ const Dashboard = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Top Selling Products */}
+     
       <div className="w-full h-[350px] bg-white p-6 rounded-2xl shadow-lg mt-10">
         <h3 className="text-2xl font-bold mb-6 text-center text-gray-700">Top-Selling Products</h3>
         <ResponsiveContainer width="100%" height="100%">

@@ -15,7 +15,7 @@ const ProductsAdmin = () => {
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
-  // Fetch products from backend with pagination
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -23,8 +23,8 @@ const ProductsAdmin = () => {
           `/admin/AdminProduct/AllProducts?pagenumber=${currentPage}&limit=${itemsPerPage}`
         );
 
-        setProducts(res.data.items || []); // set only items array
-        setTotalPages(res.data.totalPages || 1); // track total pages
+        setProducts(res.data.items || []); 
+        setTotalPages(res.data.totalPages || 1); 
       } catch (err) {
         console.error("Error fetching products:", err);
       }
@@ -33,13 +33,12 @@ const ProductsAdmin = () => {
     fetchProducts();
   }, [currentPage, itemsPerPage]);
 
-  // Get unique categories for filter dropdown
   const categories = useMemo(() => {
     const unique = new Set(products.map((p) => p.categoryName));
     return ["All", ...unique];
   }, [products]);
 
-  // Filter products by search and category
+
   const filteredProducts = useMemo(() => {
     return products
       .filter((p) =>
@@ -147,7 +146,7 @@ const ProductsAdmin = () => {
         </table>
       </div>
 
-      {/* Pagination */}
+    
       <div className="flex justify-center mt-4 space-x-2 flex-wrap">
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((num) => (
           <button
@@ -164,7 +163,7 @@ const ProductsAdmin = () => {
         ))}
       </div>
 
-      {/* Delete Modal */}
+     
       {showDeleteModal && (
         <div className="fixed inset-0 backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-80 animate-fade-in">

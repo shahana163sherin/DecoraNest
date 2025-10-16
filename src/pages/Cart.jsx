@@ -1,16 +1,14 @@
-
-
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axiosInstance from '../api/axiosInstance';
 
-// ✅ Success Modal Component
+
 const OrderSuccessModal = ({ message, show, onClose }) => {
   useEffect(() => {
     if (show) {
-      const timer = setTimeout(() => onClose(), 2500); // auto hide
+      const timer = setTimeout(() => onClose(), 2500);
       return () => clearTimeout(timer);
     }
   }, [show, onClose]);
@@ -20,7 +18,7 @@ const OrderSuccessModal = ({ message, show, onClose }) => {
   return (
    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm bg-opacity-30">
   <div className="bg-green-600 text-white rounded-xl p-8 flex flex-col items-center justify-center shadow-lg w-96 h-64">
-    {/* Tick Circle */}
+ 
     <div className="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center mb-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +32,7 @@ const OrderSuccessModal = ({ message, show, onClose }) => {
       </svg>
     </div>
 
-    {/* Message */}
+    
     <p className="text-center text-lg font-semibold">{message}</p>
   </div>
 </div>
@@ -42,7 +40,7 @@ const OrderSuccessModal = ({ message, show, onClose }) => {
   );
 };
 
-// ✅ Payment Method Modal
+
 const PaymentModal = ({ show, onClose, onSelect }) => {
   if (!show) return null;
 
@@ -164,10 +162,10 @@ const handlePaymentSelect = async (method) => {
   try {
     console.log("Placing order with token:", token);
 
-    // 1️⃣ Create order (backend handles cart automatically)
+    
     const res = await axiosInstance.post(
       "/user/Order/Create",
-      { address }, // send only address
+      { address }, 
       { headers: { Authorization: `Bearer ${token}` } }
     );
 

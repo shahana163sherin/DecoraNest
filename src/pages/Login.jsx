@@ -13,20 +13,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate=useNavigate();
 
-//   const submit = async (e) => {
-//     e.preventDefault();
-//     const result = await login(form.email, form.password);
-//     console.log(result);
-  
-//     if (result?.success) {
-//   alert("Welcome to DecoraNest");
-//   navigate(result.role === "Admin" ? "/admin/dashboard" : "/");
-// } else {
-//   alert(result.error);
-// }
 
-
-//   };
 
 
 const submit = async (e) => {

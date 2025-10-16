@@ -17,7 +17,7 @@ const Register = () => {
   const [showPassword,setShowPassword]= useState(false)
   const [showConfirmPassword,setShowConfirmPassword]= useState(false)
   const [loading, setLoading] = useState(false);
-  // const[error,setError]=useState("");
+  
 
 
 
@@ -152,7 +152,6 @@ const submit = async (e) =>{
   className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition shadow disabled:opacity-50"
 >
   {loading ? "Registering..." : "Sign Up"}
-  {/* Sign Up */}
 </button>
   </form>
 </div>

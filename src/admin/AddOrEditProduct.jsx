@@ -13,8 +13,8 @@ const AddOrEditProduct = () => {
     category: "",
     price: "",
     description: "",
-    imageFile: null, // store the file
-    imageUrl: "",    // for preview
+    imageFile: null, 
+    imageUrl: "",   
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const AddOrEditProduct = () => {
             price: data.price,
             description: data.description,
             imageFile: null,
-            imageUrl: data.imgUrl, // show existing image
+            imageUrl: data.imgUrl, 
           });
         })
         .catch((err) => {

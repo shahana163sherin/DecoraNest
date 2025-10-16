@@ -1,35 +1,3 @@
-
-// import axios from 'axios'
-
-// const URL= "http://localhost:5094/api/v1/users/Wishlist"
-
-// export const UpdatedWish = async (userId,wishlist)=>
-//     {
-//       try{
-//         const res=await axios.patch(`${URL}/${userId}`,{
-//             wishlist,
-//         })
-//         return res.data;
-
-//       }
-//       catch(error){
-//         console.error("Error in updating",error)
-//         throw error;
-//       }
-//     }
-
-//     export const getWish = async (userId) =>{
-//         try{
-//             const res=await axios.get(`${URL}/${userId}`)
-//             return res.data.wishlist
-//         }
-//         catch(error){
-//         console.error("Error in updating",error)
-//         throw error;
-//       }
-//     }
-
-
 import axios from "axios";
 
 const API_URL = "http://localhost:5094/api/v1/users/Wishlist"; 
@@ -40,7 +8,7 @@ export const addToWish = async (productId) => {
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
     });
-    return res.data.data; // Your backend wraps the object in "Data"
+    return res.data.data; 
   } catch (error) {
     console.error("Error adding to wishlist:", error);
     throw error;
@@ -56,7 +24,7 @@ export const getWishList = async () => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      withCredentials: true, // include cookies if your backend uses them
+      withCredentials: true,
     });
     return res.data.data;
   } catch (error) {

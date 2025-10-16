@@ -50,7 +50,7 @@ const App = () => {
   // console.log("Navbar User:", user);
 
   const isAdminRoute = location.pathname.startsWith("/admin");
-  const isAdmin = user && user.role === "admin";
+  const isAdmin = user && user.role === "Admin";
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -136,7 +136,7 @@ const App = () => {
                       Orders
                     </Link>
                   </li>
-                   <li>
+                   {/* <li>
                     <Link
                       to="/payment"
                       onClick={closeMenu}
@@ -144,7 +144,7 @@ const App = () => {
                     >
                       Payment
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <button
                       onClick={handleLogout}

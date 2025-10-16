@@ -1,9 +1,7 @@
-
 import axiosInstance from "../api/axiosInstance";
 
-const API_URL = "/users/Cart"; // base URL with version is already handled in axiosInstance
+const API_URL = "/users/Cart";
 
-// Add product to cart
 export const addToCart = async (productId, quantity = 1) => {
   try {
     const res = await axiosInstance.post(`${API_URL}/add`, {
@@ -17,7 +15,7 @@ export const addToCart = async (productId, quantity = 1) => {
   }
 };
 
-// Get all cart items
+
 export const getCartItems = async () => {
   try {
     const res = await axiosInstance.get(`${API_URL}/Items`);
@@ -28,7 +26,7 @@ export const getCartItems = async () => {
   }
 };
 
-// Remove single item from cart
+
 export const removeCartItems = async (cartItemId) => {
   try {
     const res = await axiosInstance.delete(`${API_URL}/RemoveItem/${cartItemId}`);
@@ -39,13 +37,13 @@ export const removeCartItems = async (cartItemId) => {
   }
 };
 
-// Clear entire cart
+
 export const clearCartItem = async () => {
   try {
     const cartToken = localStorage.getItem("token");
     console.log("Clearing cart with token:", cartToken);
 
-    // Optional: get cart length from backend before deleting
+    
     const resCart = await axiosInstance.get(`${API_URL}/Items`);
     const cartItems = resCart.data?.data?.cartItems || [];
     if (cartItems.length === 0) {
@@ -62,7 +60,7 @@ export const clearCartItem = async () => {
   }
 };
 
-// Update quantity of a cart item
+
 export const handleQuantityChange = async (cartItemId, change) => {
   try {
     const res = await axiosInstance.patch(

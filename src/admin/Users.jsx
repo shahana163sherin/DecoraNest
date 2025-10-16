@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
-import { Trash2 } from "lucide-react";
-
 import { toast } from "react-toastify";
 
 const Users = () => {
@@ -12,7 +10,7 @@ const Users = () => {
   const [search, setSearch] = useState("");
   const [sortDate, setSortDate] = useState("newest");
 
-  // ---------- Fetch Users ----------
+
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -30,7 +28,7 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  // ---------- Block / Unblock ----------
+  
 const BlockToggle = async (user) => {
   try {
     const res = await axiosInstance.put("/admin/AdminUsers/BlockUnblock", {
@@ -39,7 +37,7 @@ const BlockToggle = async (user) => {
 
     console.log("Block/Unblock response:", res.data);
 
-    const status = res.data.message.toLowerCase(); // 'user blocked' or 'user unblocked'
+    const status = res.data.message.toLowerCase(); 
 
     if (status.includes("blocked") && !status.includes("unblocked")) {
       console.log("block");
@@ -53,14 +51,10 @@ const BlockToggle = async (user) => {
     fetchUsers();
   } catch (err) {
     console.error("Error while blocking/unblocking user:", err);
-    toast.error("Failed to update user status ❌");
+    toast.error("Failed to update user status ");
   }
 };
 
-
-
-
- 
   const getFilteredUsers = () => {
     let filtered = users.filter((user) => {
       const matchRole =
@@ -100,7 +94,6 @@ const BlockToggle = async (user) => {
     <div className="p-4 sm:p-6 md:p-8">
       <h2 className="text-2xl font-bold mb-4 text-center">User Management</h2>
 
-      {/* ---------- Filters ---------- */}
       <div className="flex flex-wrap gap-6 mb-6 bg-white p-4 rounded-lg shadow-md border border-gray-200">
         <div className="flex flex-col">
           <label className="text-sm font-medium text-gray-700 mb-1">Filter by Role</label>
@@ -152,7 +145,6 @@ const BlockToggle = async (user) => {
         </div>
       </div>
 
-      {/* ---------- Table ---------- */}
       <table className="min-w-full bg-white border border-gray-200 text-sm md:text-base">
         <thead className="bg-gray-100 text-gray-700">
           <tr>

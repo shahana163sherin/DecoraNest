@@ -11,7 +11,6 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Attach JWT to every request
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -23,7 +22,6 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor with automatic refresh
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -45,7 +43,7 @@ axiosInstance.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        // Queue the request if a refresh is already in progress
+    
         return new Promise(function (resolve, reject) {
           failedQueue.push({ resolve, reject });
         })
